@@ -1,17 +1,13 @@
-import type { Metadata } from "next";
-import { ui } from "@/content/ui";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { fontClasses } from "../fonts";
 import "../globals.css";
-
-export const metadata: Metadata = {
-  title: ui.title.fr,
-  description: ui.description.fr,
-};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={fontClasses}>
-      <body>{children}</body>
+      <body>
+        <TooltipProvider delayDuration={300}>{children}</TooltipProvider>
+      </body>
     </html>
   );
 }

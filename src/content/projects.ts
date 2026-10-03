@@ -11,6 +11,8 @@ export const projects: Project[] = [
   {
     slug: "piano-concerto-festival",
     name: "Piano Concerto Festival",
+    kind: t("Freelance", "Freelance"),
+    line: t("Site d'un festival international de piano", "Website for an international piano festival"),
     summary: t(
       "Site d'un festival international de piano : programme, enseignants, candidatures, comptes participants.",
       "Website for an international piano festival: programme, faculty, applications, participant accounts.",
@@ -39,6 +41,8 @@ export const projects: Project[] = [
   {
     slug: "cyclone",
     name: "Cyclone · EDF",
+    kind: t("EDF", "EDF"),
+    line: t("Affectation des équipes après un cyclone", "Repair-crew dispatch after a cyclone"),
     summary: t(
       "Affectation des équipes de dépannage après un cyclone. Version hors-ligne pour les agences isolées.",
       "Dispatching repair crews after a cyclone. Offline version for isolated agencies.",
@@ -77,6 +81,8 @@ export const projects: Project[] = [
   {
     slug: "edf-automation",
     name: "Automatisation · EDF",
+    kind: t("EDF", "EDF"),
+    line: t("Macros et tableaux de bord", "Macros and dashboards"),
     summary: t("Macros de traitement de données et tableaux de bord.", "Data-processing macros and dashboards."),
     stack: ["VBA", "Excel", "Power BI", "Python"],
     result: t("2 h → 3 min", "2 h → 3 min"),
@@ -94,6 +100,9 @@ export const projects: Project[] = [
   {
     slug: "zappy",
     name: "Zappy",
+    kind: t("Compétition", "Competition"),
+    line: t("IA de joueurs pour un jeu réseau", "Player AI for a network game"),
+    rank: 1,
     summary: t(
       "IA de joueurs pour un jeu réseau multi-clients, et serveur de test local.",
       "Player AI for a multi-client network game, plus a local test server.",
@@ -130,6 +139,9 @@ export const projects: Project[] = [
   {
     slug: "robocar",
     name: "Robocar",
+    kind: t("Compétition", "Competition"),
+    line: t("IA de conduite d'une voiture autonome", "Driving AI for an autonomous car"),
+    rank: 3,
     summary: t("IA de conduite d'une voiture autonome.", "Driving AI for an autonomous car."),
     stack: ["Python", "C"],
     result: t("3e place", "3rd place"),
@@ -158,6 +170,8 @@ export const projects: Project[] = [
   {
     slug: "ticket-tout",
     name: "Ticket Tout",
+    kind: t("Epitech", "Epitech"),
+    line: t("MVP de paiement par QR code", "QR-payment benefits MVP"),
     summary: t(
       "MVP d'avantages salariés : catalogue partenaires, paiement par QR code, back-office.",
       "Employee-benefits MVP: partner catalogue, QR-code payment, back office.",
@@ -192,6 +206,9 @@ export const projects: Project[] = [
   {
     slug: "antennes",
     name: "Antennes · Epitech × Free",
+    kind: t("Hackathon", "Hackathon"),
+    line: t("Répartition de la couverture réseau", "Network-coverage balancing"),
+    rank: 2,
     summary: t("Localisation d'antennes et répartition de la couverture réseau.", "Antenna mapping and network-coverage balancing."),
     stack: ["Web"],
     result: t("2e place", "2nd place"),
@@ -200,6 +217,8 @@ export const projects: Project[] = [
   {
     slug: "dqn",
     name: "Lunar Lander · DQN",
+    kind: t("IA", "AI"),
+    line: t("Un agent qui apprend à atterrir", "An agent that learns to land"),
     summary: t(
       "Agent d'apprentissage par renforcement qui apprend à poser un atterrisseur.",
       "Reinforcement-learning agent that learns to land a lander.",
@@ -225,6 +244,8 @@ export const projects: Project[] = [
   {
     slug: "raytracer",
     name: "Raytracer",
+    kind: t("Epitech", "Epitech"),
+    line: t("Moteur de rendu par lancer de rayons", "Ray-tracing renderer"),
     summary: t("Moteur de rendu par lancer de rayons.", "Ray-tracing renderer."),
     stack: ["C++"],
     fields: [
@@ -247,6 +268,8 @@ export const projects: Project[] = [
   {
     slug: "42sh",
     name: "42sh",
+    kind: t("Epitech", "Epitech"),
+    line: t("Shell Unix en C", "Unix shell in C"),
     summary: t("Shell Unix en C.", "Unix shell in C."),
     stack: ["C"],
     fields: [
@@ -273,6 +296,8 @@ export const projects: Project[] = [
   {
     slug: "lego-gemini",
     name: "Lego × Gemini",
+    kind: t("Hors cursus", "Side project"),
+    line: t("Concours Lego jugé par Gemini", "Lego contest judged by Gemini"),
     summary: t(
       "Concours Lego jugé par Gemini, recréé à partir d'une démo du Google Cloud Summit Paris 2025.",
       "Lego contest judged by Gemini, rebuilt from a Google Cloud Summit Paris 2025 demo.",

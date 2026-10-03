@@ -12,7 +12,14 @@ export type Field = { label: T; value: T };
 export type Project = {
   slug: string;
   name: string;
+  /** Catégorie affichée dans l'index : Freelance, EDF, Compétition… */
+  kind: T;
+  /** Une ligne courte pour l'index (≈ 6-8 mots). */
+  line: T;
+  /** Introduction de la page projet. */
   summary: T;
+  /** Place sur le podium, pour les compétitions classées. */
+  rank?: 1 | 2 | 3;
   stack: string[];
   /** Résultat affiché en fin de ligne. */
   result?: T;
