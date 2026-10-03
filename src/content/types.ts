@@ -18,6 +18,8 @@ export type Project = {
   line: T;
   /** Introduction de la page projet. */
   summary: T;
+  /** Projet principal, affiché sur l'accueil. */
+  featured?: boolean;
   /** Place sur le podium, pour les compétitions classées. */
   rank?: 1 | 2 | 3;
   stack: string[];

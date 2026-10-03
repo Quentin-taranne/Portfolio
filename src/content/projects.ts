@@ -10,6 +10,7 @@ const STACK = t("Stack", "Stack");
 export const projects: Project[] = [
   {
     slug: "piano-concerto-festival",
+    featured: true,
     name: "Piano Concerto Festival",
     kind: t("Freelance", "Freelance"),
     line: t("Site d'un festival international de piano", "Website for an international piano festival"),
@@ -40,6 +41,7 @@ export const projects: Project[] = [
   },
   {
     slug: "cyclone",
+    featured: true,
     name: "Cyclone · EDF",
     kind: t("EDF", "EDF"),
     line: t("Affectation des équipes après un cyclone", "Repair-crew dispatch after a cyclone"),
@@ -99,6 +101,7 @@ export const projects: Project[] = [
   },
   {
     slug: "zappy",
+    featured: true,
     name: "Zappy",
     kind: t("Compétition", "Competition"),
     line: t("IA de joueurs pour un jeu réseau", "Player AI for a network game"),
@@ -138,6 +141,7 @@ export const projects: Project[] = [
   },
   {
     slug: "robocar",
+    featured: true,
     name: "Robocar",
     kind: t("Compétition", "Competition"),
     line: t("IA de conduite d'une voiture autonome", "Driving AI for an autonomous car"),
@@ -169,6 +173,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ticket-tout",
+    featured: true,
     name: "Ticket Tout",
     kind: t("Epitech", "Epitech"),
     line: t("MVP de paiement par QR code", "QR-payment benefits MVP"),

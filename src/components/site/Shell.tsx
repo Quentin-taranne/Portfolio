@@ -35,14 +35,14 @@ export function Shell({ locale, alternateHref, children }: Props) {
             QTP<span className="text-muted-foreground">.</span>
           </Link>
           <nav aria-label={ui.navLabel[locale]}>
-            <ul className="flex flex-wrap items-center gap-x-5 sm:gap-x-8">
+            <ul className="flex flex-wrap items-center gap-x-3 sm:gap-x-8">
               <li>
-                <Link href={`${home}#projets`} className={navLink}>
+                <Link href={routes.projects(locale)} className={navLink}>
                   {ui.projects[locale]}
                 </Link>
               </li>
-              <li className="hidden sm:block">
-                <Link href={`${home}#parcours`} className={navLink}>
+              <li>
+                <Link href={routes.journey(locale)} className={navLink}>
                   {ui.journey[locale]}
                 </Link>
               </li>

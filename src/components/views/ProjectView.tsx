@@ -17,7 +17,7 @@ export function projectMetadata(locale: Locale, slug: string) {
   return pageMetadata({
     locale,
     title: `${p.name} · ${ui.title[locale].split(" · ")[0]}`,
-    description: `${p.line[locale]}. ${p.summary[locale]}`,
+    description: p.summary[locale],
     paths: { fr: routes.project("fr", slug), en: routes.project("en", slug) },
   });
 }

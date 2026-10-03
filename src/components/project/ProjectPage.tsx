@@ -20,7 +20,7 @@ export function ProjectPage({ project: p, locale }: { project: Project; locale: 
 
   return (
     <article className="mx-auto max-w-[110rem] px-4 pt-8 pb-20 sm:px-8">
-      <Link href={`${routes.home(locale)}#projets`} className="data inline-flex min-h-11 items-center gap-2 underline-offset-4 hover:underline">
+      <Link href={routes.projects(locale)} className="data inline-flex min-h-11 items-center gap-2 underline-offset-4 hover:underline">
         <ArrowLeft className="size-4" aria-hidden />
         {ui.back[locale]}
       </Link>
@@ -73,7 +73,7 @@ export function ProjectPage({ project: p, locale }: { project: Project; locale: 
                 <div key={l.href} className="border-b py-4">
                   <dt className="data text-muted-foreground">{ui.link[locale]}</dt>
                   <dd className="mt-1">
-                    <a href={l.href} className="font-medium underline decoration-1 underline-offset-4 hover:decoration-2">
+                    <a href={l.href} className="inline-flex min-h-6 items-center font-medium underline decoration-1 underline-offset-4 hover:decoration-2">
                       {l.label[locale]}
                     </a>
                   </dd>

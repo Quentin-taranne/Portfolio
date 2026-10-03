@@ -1,0 +1,7 @@
+import { ProjectsView, projectsMetadata } from "@/components/views/ListViews";
+
+export const metadata = projectsMetadata("fr");
+
+export default function Page() {
+  return <ProjectsView locale="fr" />;
+}

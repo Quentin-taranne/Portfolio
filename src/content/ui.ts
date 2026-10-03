@@ -21,6 +21,10 @@ export const ui = {
 
   index: t("Index des projets", "Project index"),
   alsoBuilt: t("Aussi", "Also"),
+  allProjects: t("Voir tous les projets", "See all projects"),
+  fullJourney: t("Voir le parcours complet", "See the full journey"),
+  projectsPageDescription: t("Tous les projets de Quentin Taranne Payet : freelance, EDF, compétitions, Epitech.", "All projects by Quentin Taranne Payet: freelance, EDF, competitions, Epitech."),
+  journeyPageDescription: t("Expérience, engagement et formation de Quentin Taranne Payet.", "Experience, involvement and education of Quentin Taranne Payet."),
   experience: t("Expérience", "Experience"),
   involvement: t("Engagement", "Involvement"),
   education: t("Formation", "Education"),
