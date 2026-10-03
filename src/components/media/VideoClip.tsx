@@ -1,6 +1,7 @@
 "use client";
 
 import { Pause, Play } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "cn";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,9 @@ type Props = {
   height: number;
   playLabel: string;
   pauseLabel: string;
+  /** Aperçu prioritaire (LCP) : chargé tout de suite, en AVIF/WebP. */
+  eager?: boolean;
+  sizes?: string;
   className?: string;
 };
 
@@ -21,7 +25,7 @@ type Props = {
  * - Lecture automatique seulement si elle est visible et sans « animations réduites ».
  * - Bouton lecture / pause toujours présent (contenu animé de plus de 5 s).
  */
-export function VideoClip({ src, poster, label, width, height, playLabel, pauseLabel, className }: Props) {
+export function VideoClip({ src, poster, label, width, height, playLabel, pauseLabel, eager, sizes = "100vw", className }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   // Une pause demandée par l'utilisateur n'est jamais annulée par le scroll.
@@ -54,10 +58,19 @@ export function VideoClip({ src, poster, label, width, height, playLabel, pauseL
 
   return (
     <div className={cn("relative", className)}>
+      {/* Aperçu optimisé sous la vidéo : la vidéo, transparente tant qu'elle n'a pas d'image, le recouvre ensuite. */}
+      <Image
+        src={poster}
+        alt=""
+        fill
+        sizes={sizes}
+        loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
+        className="object-cover"
+      />
       <video
         ref={ref}
         src={src}
-        poster={poster}
         width={width}
         height={height}
         aria-label={label}
@@ -67,7 +80,7 @@ export function VideoClip({ src, poster, label, width, height, playLabel, pauseL
         preload="none"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
-        className="block h-full w-full object-cover"
+        className="relative block h-full w-full object-cover"
       />
       <Button
         type="button"

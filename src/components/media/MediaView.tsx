@@ -26,6 +26,8 @@ export function MediaView({ media, locale, sizes, eager, className }: Props) {
         height={media.height}
         playLabel={`${ui.play[locale]} : ${alt}`}
         pauseLabel={`${ui.pause[locale]} : ${alt}`}
+        eager={eager}
+        sizes={sizes}
         className={className}
       />
     );

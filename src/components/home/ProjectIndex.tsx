@@ -20,7 +20,7 @@ export function ProjectList({ items, locale }: { items: Project[]; locale: Local
       {items.map((p, i) => {
         const cover = coverOf(p.media);
         return (
-          <li key={p.slug} className="reveal border-b">
+          <li key={p.slug} className="border-b">
             <Link
               href={routes.project(locale, p.slug)}
               className="group grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-4 py-4 transition-colors duration-300 hover:bg-muted/60 focus-visible:bg-muted/60 sm:grid-cols-[2.5rem_6.5rem_minmax(0,1fr)] lg:grid-cols-[2.5rem_7.5rem_minmax(0,1fr)_minmax(0,1.1fr)_11rem_1.5rem] lg:gap-x-6"
