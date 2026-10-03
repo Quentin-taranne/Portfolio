@@ -14,7 +14,7 @@ export function Contact({ locale }: { locale: Locale }) {
         <h2 id="contact-title" className="display text-giant">
           {ui.contact[locale]}
         </h2>
-        <p className="mt-8 font-display text-[clamp(1.75rem,5.5vw,5rem)] leading-none font-extrabold [overflow-wrap:anywhere]">
+        <p className="mt-8 font-display text-[clamp(1.75rem,5.5vw,5rem)] leading-[1.1] font-extrabold [overflow-wrap:anywhere]">
           <a href={`mailto:${profile.email}`} className="underline decoration-2 underline-offset-[0.12em] hover:decoration-4">
             {profile.email}
           </a>

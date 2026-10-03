@@ -7,20 +7,20 @@ import { Button } from "@/components/ui/button";
 import { routes } from "@/lib/routes";
 import { SectionHeading } from "./SectionHeading";
 
-/** Règle 2024 → 2027 : graduation horizontale sur grand écran, verticale sur mobile. */
+/** Repères 2024 → 2027 : une colonne par année, un repère par ligne. */
 export function MilestoneRuler({ locale }: { locale: Locale }) {
   return (
-    <ol className="mt-12 grid gap-8 md:grid-cols-4 md:gap-0">
+    <ol className="mt-10 grid gap-10 md:grid-cols-4 md:gap-6">
       {milestones.map((m, i) => (
-        <li key={m.year} className="reveal relative border-l-2 border-foreground pl-5 md:border-t-2 md:border-l-0 md:pt-5 md:pl-0 md:pr-6">
+        <li key={m.year} className="reveal relative border-l-2 border-foreground pl-5 md:border-t-2 md:border-l-0 md:pt-5 md:pl-0">
           <span
             aria-hidden
-            className={`absolute -top-[7px] left-[-7px] hidden size-3 md:block ${i === milestones.length - 1 ? "bg-signal outline-2 outline-foreground" : "bg-foreground"}`}
+            className={`absolute -top-[7px] left-[-7px] hidden size-3 border border-foreground md:block ${i === milestones.length - 1 ? "bg-signal" : "bg-foreground"}`}
           />
-          <p className="display text-[clamp(2.75rem,5vw,4.5rem)] tabular">{m.year}</p>
-          <ul className="mt-3 space-y-1.5">
+          <p className="display text-[clamp(2.25rem,3.5vw,3.25rem)] tabular">{m.year}</p>
+          <ul className="mt-4">
             {m.items.map((it) => (
-              <li key={it.en} className="text-muted-foreground">
+              <li key={it.en} className="border-t py-2.5">
                 {it[locale]}
               </li>
             ))}
@@ -31,67 +31,67 @@ export function MilestoneRuler({ locale }: { locale: Locale }) {
   );
 }
 
-/** Titre numéroté d'une partie du parcours. */
-function PartHeading({ index, title, id }: { index: string; title: string; id: string }) {
+/** Partie du parcours : panneau encadré, bandeau de titre coloré (le titre porte l'information). */
+function Part({ index, id, title, color, children }: { index: string; id: string; title: string; color: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-baseline gap-4 border-t-2 border-foreground pt-5">
-      <span className="data text-muted-foreground tabular">{index}</span>
-      <h2 id={id} className="display text-[clamp(1.75rem,3vw,2.75rem)]">
-        {title}
-      </h2>
-    </div>
-  );
-}
-
-/** 01 · Expérience : frise en lignes, période en grand. */
-function ExperiencePart({ locale }: { locale: Locale }) {
-  return (
-    <section aria-labelledby="experience-title" className="mt-20">
-      <PartHeading index="01" id="experience-title" title={ui.experience[locale]} />
-      <ol className="mt-6">
-        {experience.map((e) => (
-          <li key={e.title.en} className="reveal grid gap-x-8 gap-y-2 border-b py-6 lg:grid-cols-12 lg:py-8">
-            <p className="display text-[clamp(1.75rem,3vw,2.5rem)] tabular lg:col-span-3">{e.period?.[locale]}</p>
-            <div className="lg:col-span-5">
-              <h3 className="text-xl font-medium">{e.title[locale]}</h3>
-              <p className="data mt-1 text-muted-foreground">{e.org[locale]}</p>
-            </div>
-            {e.detail && <p className="text-muted-foreground lg:col-span-4">{e.detail[locale]}</p>}
-          </li>
-        ))}
-      </ol>
+    <section aria-labelledby={id} className="reveal mt-16 border-2 border-foreground lg:mt-20">
+      <div className={`flex items-baseline gap-4 border-b-2 border-foreground px-5 py-4 text-signal-ink lg:px-8 lg:py-5 ${color}`}>
+        <span className="data tabular">{index}</span>
+        <h2 id={id} className="display text-[clamp(1.75rem,3vw,2.75rem)]">
+          {title}
+        </h2>
+      </div>
+      <div className="bg-card px-5 lg:px-8">{children}</div>
     </section>
   );
 }
 
-/** 02 · Engagement : blocs encadrés, la responsabilité principale en large. */
+/** 01 · Expérience : une ligne par poste, période en grand. */
+function ExperiencePart({ locale }: { locale: Locale }) {
+  return (
+    <Part index="01" id="experience-title" title={ui.experience[locale]} color="bg-sky">
+      <ol>
+        {experience.map((e) => (
+          <li key={e.title.en} className="grid gap-x-8 gap-y-3 border-b py-7 last:border-b-0 lg:grid-cols-12 lg:py-8">
+            <p className="display text-[clamp(1.5rem,2.4vw,2.125rem)] tabular lg:col-span-3">{e.period?.[locale]}</p>
+            <div className="lg:col-span-4">
+              <h3 className="text-xl font-medium">{e.title[locale]}</h3>
+              <p className="data mt-1.5 text-muted-foreground">{e.org[locale]}</p>
+            </div>
+            {e.detail && <p className="text-muted-foreground lg:col-span-5">{e.detail[locale]}</p>}
+          </li>
+        ))}
+      </ol>
+    </Part>
+  );
+}
+
+/** 02 · Engagement : un bloc par rôle, la responsabilité principale en large. */
 function InvolvementPart({ locale }: { locale: Locale }) {
   return (
-    <section aria-labelledby="engagement-title" className="mt-20">
-      <PartHeading index="02" id="engagement-title" title={ui.involvement[locale]} />
-      <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <Part index="02" id="engagement-title" title={ui.involvement[locale]} color="bg-ember">
+      <ul className="grid gap-4 py-7 md:grid-cols-2 lg:grid-cols-4 lg:py-8">
         {involvement.map((e, i) => (
-          <li key={e.title.en} className={`reveal flex flex-col border-2 border-foreground p-5 lg:p-6 ${i === 0 ? "md:col-span-2" : ""}`}>
+          <li key={e.title.en} className={`flex flex-col border border-input bg-background p-5 ${i === 0 ? "md:col-span-2" : ""}`}>
             <p className="data text-muted-foreground">{e.org[locale]}</p>
-            <h3 className={`display mt-3 leading-[0.95] ${i === 0 ? "text-[clamp(1.75rem,3vw,2.5rem)]" : "text-[clamp(1.5rem,2.2vw,1.875rem)]"}`}>{e.title[locale]}</h3>
+            <h3 className={`display mt-3 ${i === 0 ? "text-[clamp(1.5rem,2.6vw,2.25rem)]" : "text-[clamp(1.375rem,2vw,1.75rem)]"}`}>{e.title[locale]}</h3>
             {e.detail && <p className="mt-auto pt-6 text-muted-foreground">{e.detail[locale]}</p>}
           </li>
         ))}
       </ul>
-    </section>
+    </Part>
   );
 }
 
-/** 03 · Diplôme : intitulé en grand et avancement sur 5 ans (texte + barre, jamais la couleur seule). */
+/** 03 · Diplôme : intitulé et avancement sur 5 ans (texte + barre, jamais la couleur seule). */
 function DegreePart({ locale }: { locale: Locale }) {
   const d = education[0];
   const { years, current, start } = degreeProgress;
   return (
-    <section aria-labelledby="diplome-title" className="mt-20">
-      <PartHeading index="03" id="diplome-title" title={ui.education[locale]} />
-      <div className="reveal mt-6 grid gap-8 lg:grid-cols-12">
+    <Part index="03" id="diplome-title" title={ui.education[locale]} color="bg-signal">
+      <div className="grid gap-8 py-7 lg:grid-cols-12 lg:py-10">
         <div className="lg:col-span-7">
-          <h3 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[0.95]">{d.title[locale]}</h3>
+          <h3 className="display text-[clamp(1.75rem,3.2vw,2.75rem)]">{d.title[locale]}</h3>
           <p className="data mt-3 text-muted-foreground">
             {d.org[locale]} · {d.period?.[locale]}
           </p>
@@ -118,7 +118,7 @@ function DegreePart({ locale }: { locale: Locale }) {
           </ol>
         </div>
       </div>
-    </section>
+    </Part>
   );
 }
 

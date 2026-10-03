@@ -7,6 +7,7 @@ import type { Locale, Project } from "@/content/types";
 import { ui } from "@/content/ui";
 import { Badge } from "@/components/ui/badge";
 import { coverOf } from "@/components/media/MediaView";
+import { kindAccent } from "@/lib/accent";
 import { routes } from "@/lib/routes";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "./SectionHeading";
@@ -48,11 +49,12 @@ export function ProjectList({ items, locale }: { items: Project[]; locale: Local
 
               <span className="min-w-0">
                 <ViewTransition name={`title-${p.slug}`} share="morph" default="none">
-                  <span className="display block w-fit text-[clamp(1.375rem,1.9vw,1.875rem)] leading-none transition-transform duration-300 ease-out-quart group-hover:translate-x-1 group-focus-visible:translate-x-1">
+                  <span className="display block w-fit text-[clamp(1.375rem,1.9vw,1.875rem)] transition-transform duration-300 ease-out-quart group-hover:translate-x-1 group-focus-visible:translate-x-1">
                     {p.name}
                   </span>
                 </ViewTransition>
-                <span className="data mt-1.5 block text-muted-foreground">
+                <span className="data mt-1.5 flex items-center gap-2 text-muted-foreground">
+                  <span aria-hidden className={`size-2.5 shrink-0 border border-foreground ${kindAccent(p.kind)}`} />
                   {p.kind[locale]}
                   {p.result && <span className="text-foreground lg:hidden"> · {p.result[locale]}</span>}
                 </span>

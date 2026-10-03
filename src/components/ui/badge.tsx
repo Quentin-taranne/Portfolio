@@ -11,6 +11,8 @@ const badgeVariants = cva(
       variant: {
         default: "border-input text-foreground",
         signal: "border-signal-ink bg-signal text-signal-ink",
+        sky: "border-signal-ink bg-sky text-signal-ink",
+        ember: "border-signal-ink bg-ember text-signal-ink",
         solid: "border-primary bg-primary text-primary-foreground",
         muted: "border-transparent bg-muted text-muted-foreground",
       },

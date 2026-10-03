@@ -39,7 +39,12 @@ URL du site, pour les canoniques, Open Graph et le sitemap : `NEXT_PUBLIC_SITE_U
 
 ## Design system
 
-`src/app/globals.css` : tokens « Classement » (papier, encre, jaune chrono) en `oklch`, thème sombre automatique, échelle typographique, animations. Le jaune n'est jamais du texte sur fond clair : il sert de fond, toujours avec l'encre fixe `--signal-ink`. Polices : Big Shoulders (titres), Geist, Geist Mono.
+`src/app/globals.css` : tokens « Classement » en `oklch`, thème sombre automatique, échelle typographique, animations.
+
+- Neutres : papier et encre. Trois couleurs de surface : jaune chrono (`signal`), bleu piste (`sky`), orange (`ember`).
+- Les couleurs ne sont jamais du texte : ce sont des fonds, toujours avec l'encre fixe `--signal-ink` (contraste ≥ 9,7:1). Elles ne portent jamais seules une information.
+- Usage : podium (1er jaune, 2e bleu, 3e orange), catégorie des projets (Freelance, EDF, Compétition), bandeaux du parcours (Expérience, Engagement, Diplôme), contact.
+- Polices : Big Shoulders (titres, interlignage 1), Geist, Geist Mono.
 
 ## Structure
 

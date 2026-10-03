@@ -7,15 +7,20 @@
 
 /*
  * Design system « Classement » : un tableau de résultats.
- * Trois couleurs : papier, encre, jaune chrono. Le jaune n'est jamais du texte
- * sur fond clair ; il sert de fond, toujours avec de l'encre dessus.
+ * Neutres : papier et encre. Trois couleurs de surface : jaune chrono, bleu piste,
+ * orange. Elles ne sont jamais du texte : ce sont des fonds, toujours avec l'encre
+ * fixe dessus (contraste ≥ 9,7:1, ≥ 6,6:1 pour l'encre secondaire), et jamais le
+ * seul porteur d'une information (un texte dit toujours la même chose).
  */
 :root {
   --paper: oklch(0.958 0.005 95);
   --ink: oklch(0.18 0.005 95);
   --signal: oklch(0.95 0.21 118);
-  /* Encre fixe pour le texte posé sur le jaune, dans les deux thèmes. */
+  --sky: oklch(0.8 0.1 240);
+  --ember: oklch(0.8 0.13 55);
+  /* Encres fixes pour le texte posé sur une couleur, dans les deux thèmes. */
   --signal-ink: oklch(0.18 0.005 95);
+  --signal-ink-soft: oklch(0.32 0.01 95);
 
   --background: var(--paper);
   --foreground: var(--ink);
@@ -75,6 +80,9 @@
   --color-ring: var(--ring);
   --color-signal: var(--signal);
   --color-signal-ink: var(--signal-ink);
+  --color-signal-ink-soft: var(--signal-ink-soft);
+  --color-sky: var(--sky);
+  --color-ember: var(--ember);
 
   --font-display: var(--font-big-shoulders);
   --font-sans: var(--font-geist);
@@ -120,7 +128,8 @@
   .display {
     font-family: var(--font-display);
     font-weight: 800;
-    line-height: 0.82;
+    /* Interlignage plein : les titres sur plusieurs lignes ne se touchent pas. */
+    line-height: 1;
     letter-spacing: -0.01em;
     text-transform: uppercase;
   }
