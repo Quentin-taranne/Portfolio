@@ -181,7 +181,52 @@
   }
 }
 
+/* Frise du parcours : la ligne se trace, puis les étapes apparaissent une à une. */
+@keyframes draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes draw-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+@keyframes dot {
+  from {
+    transform: scale(0);
+  }
+}
+.frise-line-x {
+  transform-origin: left;
+  animation: draw-x 1.6s var(--ease-out-quart) both;
+}
+.frise-line-y {
+  transform-origin: top;
+  animation: draw-y 1.6s var(--ease-out-quart) both;
+}
+.frise-item {
+  animation: pop 600ms var(--ease-out-quart) both;
+  animation-delay: calc(250ms + var(--i) * 170ms);
+}
+.frise-item .frise-dot {
+  animation: dot 400ms var(--ease-out-quart) both;
+  animation-delay: calc(250ms + var(--i) * 170ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .frise-line-x,
+  .frise-line-y,
+  .frise-item,
+  .frise-item .frise-dot {
+    animation: none !important;
+  }
   html {
     scroll-behavior: auto;
   }

@@ -1,4 +1,5 @@
-import { JourneyDetails, MilestoneRuler } from "@/components/home/Journey";
+import { JourneyDetails } from "@/components/home/Journey";
+import { Timeline } from "@/components/journey/Timeline";
 import { MinorProjects, ProjectList } from "@/components/home/ProjectIndex";
 import { SectionHeading } from "@/components/home/SectionHeading";
 import { Shell } from "@/components/site/Shell";
@@ -46,8 +47,10 @@ export function JourneyView({ locale }: { locale: Locale }) {
     <Shell locale={locale} alternateHref={routes.journey(otherLocale(locale))}>
       <div className={page}>
         <SectionHeading id="parcours-title" title={ui.journey[locale]} level={1} />
-        <MilestoneRuler locale={locale} />
         <JourneyDetails locale={locale} />
+        <div className="mt-16 flex justify-center border-t-2 border-foreground pt-10 lg:mt-20">
+          <Timeline locale={locale} />
+        </div>
       </div>
     </Shell>
   );

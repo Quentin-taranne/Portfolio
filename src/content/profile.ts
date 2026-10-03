@@ -115,3 +115,17 @@ export const milestones: { year: string; items: T[] }[] = [
   },
   { year: "2027", items: [t("Stage de 3e année · avril", "3rd-year internship · April")] },
 ];
+
+/** Grandes étapes de la frise animée (page Parcours). Uniquement des dates connues. */
+export type TimelineType = "school" | "work" | "competition" | "project";
+
+export const timeline: { when: T; title: T; detail?: T; type: TimelineType; upcoming?: boolean }[] = [
+  { when: t("2024", "2024"), title: t("Entrée à Epitech", "Joined Epitech"), detail: t("Expert en technologies de l'information", "IT Expert programme"), type: "school" },
+  { when: t("Juin 2025", "June 2025"), title: t("Lego × Gemini", "Lego × Gemini"), detail: t("Recréé en 3 jours, sans expérience web", "Rebuilt in 3 days, no prior web experience"), type: "project" },
+  { when: t("Juil.–déc. 2025", "Jul–Dec 2025"), title: t("Stage EDF SEI Réunion", "EDF SEI Réunion internship"), detail: t("Cyclone, automatisation 2 h → 3 min", "Cyclone app, 2 h → 3 min automation"), type: "work" },
+  { when: t("Févr. 2026", "Feb 2026"), title: t("Assistant pédagogique", "Teaching assistant"), detail: t("Epitech Réunion, 2 jours par semaine", "Epitech Réunion, 2 days a week"), type: "work" },
+  { when: t("Juin 2026", "June 2026"), title: t("Zappy · 1er régional", "Zappy · 1st regional"), detail: t("IA des joueurs, niveau 8 atteint", "Player AI, reaches level 8"), type: "competition" },
+  { when: t("Été 2026", "Summer 2026"), title: t("Robocar · 3e place", "Robocar · 3rd place"), detail: t("Compétition à Epitech Paris", "Competition at Epitech Paris"), type: "competition" },
+  { when: t("Sept. 2026", "Sept 2026"), title: t("Ticket Tout", "Ticket Tout"), detail: t("MVP livré en 2 semaines, équipe de 4", "MVP shipped in 2 weeks, team of 4"), type: "project" },
+  { when: t("Avril 2027", "April 2027"), title: t("Stage de 3e année", "3rd-year internship"), detail: t("4 mois", "4 months"), type: "work", upcoming: true },
+];
