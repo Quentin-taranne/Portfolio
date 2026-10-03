@@ -9,7 +9,7 @@ function EntryList({ title, items, locale }: { title: string; items: Entry[]; lo
       <h3 className="data mb-3 text-muted-foreground">{title}</h3>
       <ul className="border-t-2 border-foreground">
         {items.map((e) => (
-          <li key={e.title.en + e.org.en} className="border-b py-4">
+          <li key={e.title.en + e.org.en} className="reveal border-b py-4">
             <p className="flex flex-wrap items-baseline justify-between gap-x-4">
               <span className="font-medium">{e.title[locale]}</span>
               {e.period && <span className="data text-muted-foreground tabular">{e.period[locale]}</span>}
@@ -32,7 +32,7 @@ export function Journey({ locale }: { locale: Locale }) {
       {/* Règle 2024 → 2027 : graduation horizontale sur grand écran, verticale sur mobile. */}
       <ol className="mt-12 grid gap-8 md:grid-cols-4 md:gap-0">
         {milestones.map((m, i) => (
-          <li key={m.year} className="relative border-l-2 border-foreground pl-5 md:border-t-2 md:border-l-0 md:pt-5 md:pl-0 md:pr-6">
+          <li key={m.year} className="reveal relative border-l-2 border-foreground pl-5 md:border-t-2 md:border-l-0 md:pt-5 md:pl-0 md:pr-6">
             <span aria-hidden className={`absolute -top-[7px] left-[-7px] hidden size-3 md:block ${i === milestones.length - 1 ? "bg-signal outline-2 outline-foreground" : "bg-foreground"}`} />
             <p className="display text-[clamp(2.75rem,5vw,4.5rem)] tabular">{m.year}</p>
             <ul className="mt-3 space-y-1.5">

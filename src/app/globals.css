@@ -135,9 +135,56 @@
   }
 }
 
+/* ---------- Mouvement (transform et opacity uniquement) ---------- */
+
+/* Morphing entre l'index et la page projet (React <ViewTransition share="morph">). */
+::view-transition-group(.morph) {
+  animation-duration: 450ms;
+  animation-timing-function: var(--ease-out-quart);
+}
+
+/* Montée du podium au chargement : chaque marche glisse depuis le bas. */
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+.rise {
+  animation: rise 900ms var(--ease-out-quart) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/*
+ * Révélation au scroll, en CSS pur (scroll-driven animations).
+ * Navigateur non compatible : aucune animation, le contenu est visible.
+ */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+}
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+  .rise,
+  .reveal {
+    animation: none !important;
   }
   *,
   *::before,

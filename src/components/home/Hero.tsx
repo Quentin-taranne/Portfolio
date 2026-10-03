@@ -49,17 +49,17 @@ export function Hero({ locale }: { locale: Locale }) {
         <h2 className="data mb-3 text-muted-foreground">
           {ui.podium[locale]} <span className="sr-only">· {ui.podiumHint[locale]}</span>
         </h2>
-        <ol className="flex h-[19rem] items-end gap-2 sm:h-[26rem] lg:h-[32rem]">
+        <ol className="flex h-[19rem] items-end gap-2 overflow-hidden sm:h-[26rem] lg:h-[32rem]">
           {ranked.map((p) => {
             const rank = p.rank!;
             const cover = coverOf(p.media);
             const winner = rank === 1;
             return (
-              <li key={p.slug} className={`${HEIGHT[rank]} flex-1`}>
+              <li key={p.slug} className={`rise ${HEIGHT[rank]} flex-1`} style={{ "--delay": `${(3 - rank) * 140 + 150}ms` } as React.CSSProperties}>
                 <Link
                   href={routes.project(locale, p.slug)}
-                  className={`group flex h-full flex-col overflow-hidden border p-3 sm:p-4 ${
-                    winner ? "border-signal-ink bg-signal text-signal-ink" : "border-foreground bg-background text-foreground"
+                  className={`group flex h-full flex-col overflow-hidden border p-3 focus-visible:outline-offset-[-7px] sm:p-4 ${
+                    winner ? "border-signal-ink bg-signal text-signal-ink [--ring:var(--signal-ink)]" : "border-foreground bg-background text-foreground"
                   }`}
                 >
                   <span className="display text-[clamp(4.5rem,11vw,10rem)] leading-[0.75] tabular">

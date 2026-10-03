@@ -12,7 +12,7 @@ export function Figures({ locale }: { locale: Locale }) {
         </h2>
         <dl className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {keyFigures.map((f) => (
-            <div key={f.label.en} className="flex flex-col-reverse gap-3 border-t pt-4">
+            <div key={f.label.en} className="reveal flex flex-col-reverse gap-3 border-t pt-4">
               <dt className="text-muted-foreground">{f.label[locale]}</dt>
               <dd className="display text-[clamp(2.75rem,4.6vw,4.75rem)] whitespace-nowrap tabular">{f.value[locale]}</dd>
             </div>

@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ViewTransition } from "react";
 import { projects } from "@/content/projects";
 import type { Locale, Project } from "@/content/types";
 import { ui } from "@/content/ui";
@@ -30,7 +31,9 @@ export function ProjectPage({ project: p, locale }: { project: Project; locale: 
             {p.kind[locale]}
             {p.rank && <> · {p.rank}{ui.rankSuffix[p.rank][locale]}</>}
           </p>
-          <h1 className="display mt-3 text-giant">{p.name}</h1>
+          <ViewTransition name={`title-${p.slug}`} share="morph" default="none">
+            <h1 className="display mt-3 text-giant">{p.name}</h1>
+          </ViewTransition>
           <p className="mt-5 max-w-3xl text-lead text-muted-foreground">{p.summary[locale]}</p>
         </div>
         <div className="flex flex-col gap-4 lg:col-span-4 lg:items-end">
@@ -87,7 +90,7 @@ export function ProjectPage({ project: p, locale }: { project: Project; locale: 
             </h2>
             <ul className="grid gap-4 border-t-2 border-foreground pt-4 sm:grid-cols-2">
               {gallery.map((m) => (
-                <li key={m.src} className={m.width > m.height ? "sm:col-span-2" : ""}>
+                <li key={m.src} className={`reveal ${m.width > m.height ? "sm:col-span-2" : ""}`}>
                   <figure>
                     {m.kind === "video" ? (
                       <MediaView media={m} locale={locale} sizes="(min-width: 1024px) 60vw, 96vw" className="h-auto w-full border" />

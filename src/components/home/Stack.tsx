@@ -12,7 +12,7 @@ export function Stack({ locale }: { locale: Locale }) {
       </h2>
       <dl className="border-t-2 border-foreground">
         {skills.map((s) => (
-          <div key={s.label.en} className="grid gap-3 border-b py-4 md:grid-cols-[14rem_1fr]">
+          <div key={s.label.en} className="reveal grid gap-3 border-b py-4 md:grid-cols-[14rem_1fr]">
             <dt className="font-medium">{s.label[locale]}</dt>
             <dd>
               <ul className="flex flex-wrap gap-1.5">
