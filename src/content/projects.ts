@@ -172,9 +172,9 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "ticket-tout",
+    slug: "cartepro",
     featured: true,
-    name: "Ticket Tout",
+    name: "CartePro",
     kind: t("Epitech", "Epitech"),
     line: t("MVP de paiement par QR code", "QR-payment benefits MVP"),
     summary: t(

@@ -110,7 +110,7 @@ export const milestones: { year: string; items: T[] }[] = [
     items: [
       t("Assistant pédagogique · dès février", "Teaching assistant · from February"),
       t("Zappy · 1er régional", "Zappy · 1st regional"),
-      t("Ticket Tout · septembre", "Ticket Tout · September"),
+      t("CartePro · septembre", "CartePro · September"),
     ],
   },
   { year: "2027", items: [t("Stage de 3e année · avril", "3rd-year internship · April")] },
@@ -126,6 +126,6 @@ export const timeline: { when: T; title: T; detail?: T; type: TimelineType; upco
   { when: t("Févr. 2026", "Feb 2026"), title: t("Assistant pédagogique", "Teaching assistant"), detail: t("Epitech Réunion, 2 jours par semaine", "Epitech Réunion, 2 days a week"), type: "work" },
   { when: t("Juin 2026", "June 2026"), title: t("Zappy · 1er régional", "Zappy · 1st regional"), detail: t("IA des joueurs, niveau 8 atteint", "Player AI, reaches level 8"), type: "competition" },
   { when: t("Été 2026", "Summer 2026"), title: t("Robocar · 3e place", "Robocar · 3rd place"), detail: t("Compétition à Epitech Paris", "Competition at Epitech Paris"), type: "competition" },
-  { when: t("Sept. 2026", "Sept 2026"), title: t("Ticket Tout", "Ticket Tout"), detail: t("MVP livré en 2 semaines, équipe de 4", "MVP shipped in 2 weeks, team of 4"), type: "project" },
+  { when: t("Sept. 2026", "Sept 2026"), title: t("CartePro", "CartePro"), detail: t("MVP livré en 2 semaines, équipe de 4", "MVP shipped in 2 weeks, team of 4"), type: "project" },
   { when: t("Avril 2027", "April 2027"), title: t("Stage de 3e année", "3rd-year internship"), detail: t("4 mois", "4 months"), type: "work", upcoming: true },
 ];
