@@ -28,8 +28,12 @@ export const accessibilityStatement = {
       title: t("Établissement de la déclaration", "Preparation of this statement"),
       body: [
         t(
-          "Technologies : HTML, CSS, JavaScript (Next.js, React). Vérifications : axe-core, Lighthouse, navigation au clavier, réglage « réduire les animations », zoom à 200 % et affichage à 320 px de large, contrastes calculés pour les thèmes clair et sombre.",
-          "Technologies: HTML, CSS, JavaScript (Next.js, React). Checks: axe-core, Lighthouse, keyboard navigation, “reduce motion” setting, 200% zoom and 320px-wide display, contrast computed for light and dark themes.",
+          "Technologies : HTML, CSS, JavaScript (Next.js, React, Radix UI). Pages vérifiées : accueil, une page projet par langue, cette déclaration, en thème clair et sombre.",
+          "Technologies: HTML, CSS, JavaScript (Next.js, React, Radix UI). Pages checked: home, one project page per language, this statement, in light and dark themes.",
+        ),
+        t(
+          "Résultats : aucune erreur détectée par axe-core 4.13 (règles WCAG 2.0 à 2.2, niveaux A et AA). Contrastes du texte calculés entre 5,8:1 et 16,8:1. Navigation au clavier complète, lien d'évitement, focus visible, fenêtres modales qui gardent et rendent le focus. Aucun défilement horizontal de 320 à 1920 px de large. Animations coupées avec le réglage « réduire les animations » ; chaque vidéo a un bouton lecture / pause.",
+          "Results: no issues found by axe-core 4.13 (WCAG 2.0 to 2.2 rules, levels A and AA). Text contrast computed between 5.8:1 and 16.8:1. Full keyboard navigation, skip link, visible focus, modal dialogs that trap and return focus. No horizontal scrolling from 320 to 1920px wide. Animations disabled with the “reduce motion” setting; every video has a play / pause button.",
         ),
       ],
     },
