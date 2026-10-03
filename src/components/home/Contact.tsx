@@ -4,7 +4,7 @@ import { ui } from "@/content/ui";
 import { Button } from "@/components/ui/button";
 import { CopyEmail } from "./CopyEmail";
 
-const link = "font-medium underline decoration-1 underline-offset-4 hover:decoration-2";
+const link = "inline-flex min-h-6 items-center font-medium underline decoration-1 underline-offset-4 hover:decoration-2";
 
 /** Contact : bloc jaune, adresse en très grand. Le texte est toujours en encre fixe. */
 export function Contact({ locale }: { locale: Locale }) {

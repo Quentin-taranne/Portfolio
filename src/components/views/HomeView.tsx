@@ -1,5 +1,4 @@
 import { Contact } from "@/components/home/Contact";
-import { Figures } from "@/components/home/Figures";
 import { Hero } from "@/components/home/Hero";
 import { Journey } from "@/components/home/Journey";
 import { ProjectIndex } from "@/components/home/ProjectIndex";
@@ -19,7 +18,6 @@ export function HomeView({ locale }: { locale: Locale }) {
       />
       <Hero locale={locale} />
       <ProjectIndex locale={locale} />
-      <Figures locale={locale} />
       <Journey locale={locale} />
       <Stack locale={locale} />
       <Contact locale={locale} />

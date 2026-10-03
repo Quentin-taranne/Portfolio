@@ -20,9 +20,7 @@ export const ui = {
   internship: t("Stage : avril 2027 · 4 mois", "Internship: April 2027 · 4 months"),
 
   index: t("Index des projets", "Project index"),
-  openProject: t("Ouvrir", "Open"),
   alsoBuilt: t("Aussi", "Also"),
-  figures: t("En chiffres", "By the numbers"),
   experience: t("Expérience", "Experience"),
   involvement: t("Engagement", "Involvement"),
   education: t("Formation", "Education"),

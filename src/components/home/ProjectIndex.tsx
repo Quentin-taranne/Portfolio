@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { ViewTransition } from "react";
 import { minorProjects, projects } from "@/content/projects";
@@ -6,61 +8,79 @@ import { ui } from "@/content/ui";
 import { Badge } from "@/components/ui/badge";
 import { coverOf } from "@/components/media/MediaView";
 import { routes } from "@/lib/routes";
-import { CursorPreview } from "./CursorPreview";
 import { SectionHeading } from "./SectionHeading";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-/** Index des projets, façon tableau de classement. */
+/** Index des projets : une ligne sobre par projet, vignette fixe, survol en CSS. */
 export function ProjectIndex({ locale }: { locale: Locale }) {
   return (
     <section id="projets" aria-labelledby="projets-title" className="mx-auto max-w-[110rem] scroll-mt-16 px-4 py-20 sm:px-8 lg:py-28">
       <SectionHeading id="projets-title" title={ui.projects[locale]} count={projects.length} />
 
-      <ol id="index-projets" className="mt-10 border-t-2 border-foreground" aria-label={ui.index[locale]}>
+      <ol className="mt-8 border-t border-foreground" aria-label={ui.index[locale]}>
         {projects.map((p, i) => {
           const cover = coverOf(p.media);
           return (
             <li key={p.slug} className="reveal border-b">
               <Link
                 href={routes.project(locale, p.slug)}
-                data-preview={cover?.src}
-                className="group relative isolate grid grid-cols-[2.25rem_minmax(0,1fr)] items-baseline gap-x-3 gap-y-2 py-5 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-x-4 lg:grid-cols-[5rem_minmax(0,1.1fr)_9rem_minmax(0,1fr)_minmax(0,12rem)] lg:gap-x-8 lg:py-6"
+                className="group grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-4 py-4 transition-colors duration-300 hover:bg-muted/60 focus-visible:bg-muted/60 sm:grid-cols-[2.5rem_6.5rem_minmax(0,1fr)] lg:grid-cols-[2.5rem_7.5rem_minmax(0,1fr)_minmax(0,1.1fr)_11rem_1.5rem] lg:gap-x-6"
               >
-                {/* Balayage jaune au survol : transform uniquement. */}
-                <span
-                  aria-hidden
-                  className="absolute inset-0 -z-10 origin-left scale-x-0 bg-signal transition-transform duration-500 ease-out-quart group-hover:scale-x-100 group-focus-visible:scale-x-100"
-                />
-                <span className="data text-muted-foreground tabular group-hover:text-signal-ink group-focus-visible:text-signal-ink">{pad(i + 1)}</span>
-                <ViewTransition name={`title-${p.slug}`} share="morph" default="none">
-                  <span className="display text-[clamp(2rem,4.2vw,3.75rem)] leading-[0.95] group-hover:text-signal-ink group-focus-visible:text-signal-ink">
-                    {p.name}
+                <span className="data self-start pt-1 text-muted-foreground tabular sm:self-center sm:pt-0">{pad(i + 1)}</span>
+
+                {/* Vignette : toujours présente, légère mise à l'échelle au survol (transform uniquement). */}
+                <span className="relative hidden aspect-[16/10] overflow-hidden border bg-muted sm:block" aria-hidden>
+                  {cover ? (
+                    <Image
+                      src={cover.src}
+                      alt=""
+                      fill
+                      sizes="7.5rem"
+                      className="object-cover transition-transform duration-500 ease-out-quart group-hover:scale-105 group-focus-visible:scale-105"
+                    />
+                  ) : (
+                    <span className="display absolute inset-0 grid place-items-center px-1 text-center text-lg text-muted-foreground">
+                      {p.result?.[locale] ?? "—"}
+                    </span>
+                  )}
+                </span>
+
+                <span className="min-w-0">
+                  <ViewTransition name={`title-${p.slug}`} share="morph" default="none">
+                    <span className="display block w-fit text-[clamp(1.375rem,1.9vw,1.875rem)] leading-none transition-transform duration-300 ease-out-quart group-hover:translate-x-1 group-focus-visible:translate-x-1">
+                      {p.name}
+                    </span>
+                  </ViewTransition>
+                  <span className="data mt-1.5 block text-muted-foreground">
+                    {p.kind[locale]}
+                    {p.result && <span className="text-foreground lg:hidden"> · {p.result[locale]}</span>}
                   </span>
-                </ViewTransition>
-                <span className="display col-start-2 text-[clamp(1.25rem,2vw,1.75rem)] leading-none lg:col-start-auto lg:justify-self-end lg:text-right group-hover:text-signal-ink group-focus-visible:text-signal-ink lg:order-last">
-                  {p.result?.[locale] ?? <span className="text-muted-foreground group-hover:text-signal-ink">—</span>}
+                  <span className="mt-2 block text-sm text-muted-foreground lg:hidden">{p.line[locale]}</span>
                 </span>
-                <span className="data col-start-2 text-muted-foreground group-hover:text-signal-ink group-focus-visible:text-signal-ink lg:col-start-auto">
-                  {p.kind[locale]}
-                </span>
-                <span className="col-start-2 text-lead text-muted-foreground group-hover:text-signal-ink group-focus-visible:text-signal-ink lg:col-start-auto">
-                  {p.line[locale]}
-                  <span className="mt-3 flex flex-wrap gap-1.5">
+
+                <span className="hidden min-w-0 lg:block">
+                  <span className="block text-muted-foreground">{p.line[locale]}</span>
+                  <span className="mt-2 flex flex-wrap gap-1">
                     {p.stack.map((s) => (
-                      <Badge key={s} className="group-hover:border-signal-ink group-hover:text-signal-ink group-focus-visible:border-signal-ink group-focus-visible:text-signal-ink">
+                      <Badge key={s} variant="muted">
                         {s}
                       </Badge>
                     ))}
                   </span>
                 </span>
+
+                <span className="data hidden justify-self-end text-right text-foreground lg:block">{p.result?.[locale] ?? ""}</span>
+
+                <ArrowUpRight
+                  aria-hidden
+                  className="hidden size-5 justify-self-end text-muted-foreground transition-transform duration-300 ease-out-quart group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground lg:block"
+                />
               </Link>
             </li>
           );
         })}
       </ol>
-
-      <CursorPreview targetId="index-projets" label={ui.openProject[locale]} />
 
       <h3 className="data mt-14 mb-4 text-muted-foreground">{ui.alsoBuilt[locale]}</h3>
       <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">

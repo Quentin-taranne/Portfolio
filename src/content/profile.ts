@@ -95,14 +95,6 @@ export const extras: { label: T; value: T }[] = [
   },
 ];
 
-/** Chiffres clés, affichés en grand. */
-export const keyFigures: { value: T; label: T }[] = [
-  { value: t("2 h → 3 min", "2 h → 3 min"), label: t("Traitement manuel automatisé chez EDF", "Manual processing automated at EDF") },
-  { value: t("6 mois", "6 months"), label: t("De stage chez EDF SEI Réunion", "Internship at EDF SEI Réunion") },
-  { value: t("2 / mois", "2 / month"), label: t("Ateliers de programmation, en responsable", "Programming workshops, as lead") },
-  { value: t("10–30", "10–30"), label: t("Étudiants par atelier", "Students per workshop") },
-];
-
 /** Repères du parcours : uniquement des dates connues. */
 export const milestones: { year: string; items: T[] }[] = [
   { year: "2024", items: [t("Entrée à Epitech", "Joined Epitech")] },

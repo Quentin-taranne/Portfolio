@@ -13,7 +13,7 @@ type Props = {
 };
 
 const navLink =
-  "data inline-flex min-h-11 items-center underline-offset-4 decoration-2 hover:underline hover:decoration-signal-ink";
+  "data inline-flex min-h-11 min-w-11 items-center justify-center underline-offset-4 decoration-2 hover:underline hover:decoration-signal-ink";
 
 /** Enveloppe commune : lien d'évitement, en-tête, contenu principal, pied de page. */
 export function Shell({ locale, alternateHref, children }: Props) {
