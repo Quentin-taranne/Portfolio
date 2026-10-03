@@ -1,75 +1,149 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+/* Le thème sombre suit le réglage du système. */
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+/*
+ * Design system « Classement » : un tableau de résultats.
+ * Trois couleurs : papier, encre, jaune chrono. Le jaune n'est jamais du texte
+ * sur fond clair ; il sert de fond, toujours avec de l'encre dessus.
+ */
 :root {
-  --bg: #fbfbfa;
-  --fg: #141416;
-  --muted: #66666d;
-  --rule: #e4e4e1;
-  --soft: #f1f1ee;
-  --accent: #1f47d6;
+  --paper: oklch(0.958 0.005 95);
+  --ink: oklch(0.18 0.005 95);
+  --signal: oklch(0.95 0.21 118);
+  /* Encre fixe pour le texte posé sur le jaune, dans les deux thèmes. */
+  --signal-ink: oklch(0.18 0.005 95);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.985 0.003 95);
+  --card-foreground: var(--ink);
+  --popover: var(--ink);
+  --popover-foreground: var(--paper);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: oklch(0.915 0.006 95);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.915 0.006 95);
+  --muted-foreground: oklch(0.45 0.008 95);
+  --accent: var(--signal);
+  --accent-foreground: var(--signal-ink);
+  --destructive: oklch(0.55 0.2 27);
+  /* Séparateurs décoratifs (pas d'exigence de contraste). */
+  --border: oklch(0.84 0.008 95);
+  /* Contours de composants : 3:1 minimum. */
+  --input: oklch(0.45 0.008 95);
+  --ring: var(--ink);
+  --radius: 0rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f0f11;
-    --fg: #ececee;
-    --muted: #9a9aa2;
-    --rule: #26262b;
-    --soft: #18181c;
-    --accent: #85a3ff;
+    --paper: oklch(0.16 0.004 95);
+    --ink: oklch(0.95 0.005 95);
+    --card: oklch(0.2 0.004 95);
+    --secondary: oklch(0.24 0.004 95);
+    --muted: oklch(0.24 0.004 95);
+    --muted-foreground: oklch(0.74 0.006 95);
+    --border: oklch(0.33 0.004 95);
+    --input: oklch(0.74 0.006 95);
+    --destructive: oklch(0.7 0.18 27);
   }
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-fg: var(--fg);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
-  --color-rule: var(--rule);
-  --color-soft: var(--soft);
+  --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
-  --font-sans: var(--font-plex-sans);
-  --font-mono: var(--font-plex-mono);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-signal: var(--signal);
+  --color-signal-ink: var(--signal-ink);
+
+  --font-display: var(--font-big-shoulders);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  /* Échelle typographique fluide. */
+  --text-mega: clamp(4.5rem, 17vw, 17rem);
+  --text-giant: clamp(3.25rem, 10vw, 9rem);
+  --text-title: clamp(2.25rem, 5vw, 4.5rem);
+  --text-lead: clamp(1.125rem, 1.6vw, 1.375rem);
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-plex-sans), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+  ::selection {
+    background: var(--signal);
+    color: var(--signal-ink);
+  }
+  /* Focus toujours visible : contour épais, à la couleur du texte. */
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+  }
 }
 
-::selection {
-  background: var(--accent);
-  color: var(--bg);
+@layer utilities {
+  /* Titres et chiffres : grotesque condensée, en capitales. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.82;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+  .data {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
 }
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-a.ln {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--rule);
-  text-underline-offset: 3px;
-  transition: color 120ms, text-decoration-color 120ms;
-}
-a.ln:hover {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
-}
-
-/* Lignes de projet : <details> natif, sans le marqueur par défaut. */
-summary {
-  list-style: none;
-}
-summary::-webkit-details-marker {
-  display: none;
-}
-details[open] .toggle {
-  transform: rotate(45deg);
-}
-details::details-content {
-  transition: content-visibility 200ms allow-discrete;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
