@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { fr: routes.home("fr"), en: routes.home("en"), priority: 1 },
     { fr: routes.projects("fr"), en: routes.projects("en"), priority: 0.9 },
     { fr: routes.journey("fr"), en: routes.journey("en"), priority: 0.7 },
+    { fr: routes.cv("fr"), en: routes.cv("en"), priority: 0.6 },
     ...projects.map((p) => ({ fr: routes.project("fr", p.slug), en: routes.project("en", p.slug), priority: 0.8 })),
     { fr: routes.accessibility("fr"), en: routes.accessibility("en"), priority: 0.3 },
   ];

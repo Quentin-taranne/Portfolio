@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Fichiers déposés pour traitement (originaux lourds, non publiés)
+/uploads/

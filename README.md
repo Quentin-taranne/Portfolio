@@ -30,7 +30,7 @@ Tout le texte est dans `src/content/`, chaque chaîne en `{ fr, en }`.
 | `ui.ts` | Libellés de l'interface, titre et description |
 
 - Un champ absent n'est pas affiché (`result`, `media`, `links`, `period`, `detail`).
-- **CV** : déposer le PDF dans `public/`, puis `profile.links.cv = "/cv.pdf"`.
+- **CV** : page `/cv` (et `/en/cv`) générée depuis ces mêmes données, imprimable sur une page A4 (bouton « Imprimer / PDF »). Photo : `public/media/portrait.jpg` (`profile.photo`).
 - **Médias** : `public/media/`. Les images passent par `next/image` (AVIF/WebP, `srcset`) ; les vidéos sont muettes, avec bouton lecture / pause.
 
 ## Domaine

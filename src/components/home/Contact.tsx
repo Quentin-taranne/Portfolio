@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/content/types";
 import { ui } from "@/content/ui";
 import { Button } from "@/components/ui/button";
+import { routes } from "@/lib/routes";
 import { CopyEmail } from "./CopyEmail";
 
 const link = "inline-flex min-h-6 items-center font-medium underline decoration-1 underline-offset-4 hover:decoration-2";
@@ -23,6 +25,9 @@ export function Contact({ locale }: { locale: Locale }) {
           <CopyEmail email={profile.email} label={ui.copyEmail[locale]} done={ui.copied[locale]} />
           <Button asChild variant="outline" className="border-signal-ink">
             <a href={`mailto:${profile.email}`}>{ui.writeMe[locale]}</a>
+          </Button>
+          <Button asChild variant="outline" className="border-signal-ink">
+            <Link href={routes.cv(locale)}>{ui.cv[locale]}</Link>
           </Button>
         </div>
         <ul className="mt-12 grid gap-x-10 gap-y-5 border-t-2 border-signal-ink pt-6 sm:grid-cols-2 lg:grid-cols-5">

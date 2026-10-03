@@ -220,6 +220,30 @@
   animation-delay: calc(250ms + var(--i) * 170ms);
 }
 
+/* ---------- Impression (page CV) ---------- */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+@media print {
+  :root {
+    --paper: oklch(1 0 0);
+    --ink: oklch(0.18 0.005 95);
+    --card: oklch(1 0 0);
+    --muted-foreground: oklch(0.4 0.008 95);
+    --border: oklch(0.8 0.008 95);
+    --input: oklch(0.45 0.008 95);
+  }
+  body {
+    background: white;
+    font-size: 10pt;
+  }
+  .reveal,
+  .rise {
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .frise-line-x,
   .frise-line-y,

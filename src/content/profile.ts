@@ -7,11 +7,11 @@ export const profile = {
   role: t("Développeur · Epitech, 3e année", "Developer · Epitech, 3rd year"),
   email: "quentinpayetaranne@gmail.com",
   emailSchool: "quentin-stephane.taranne-payet@epitech.eu",
+  /** Portrait recadré et sans métadonnées (original dans /uploads, non publié). */
+  photo: { src: "/media/portrait.jpg", width: 600, height: 600, alt: t("Portrait de Quentin Taranne Payet", "Portrait of Quentin Taranne Payet") },
   links: {
     github: "https://github.com/Quentin-taranne",
     linkedin: "https://www.linkedin.com/in/quentin-taranne-payet/",
-    // Chemin d'un PDF dans /public (ex. "/cv.pdf"). `null` : le lien n'est pas affiché.
-    cv: null as string | null,
   },
 };
 

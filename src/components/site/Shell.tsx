@@ -24,12 +24,12 @@ export function Shell({ locale, alternateHref, children }: Props) {
     <>
       <a
         href="#contenu"
-        className="data fixed top-2 left-2 z-[100] -translate-y-24 bg-signal px-4 py-3 text-signal-ink focus-visible:translate-y-0"
+        className="data fixed top-2 left-2 z-[100] -translate-y-24 print:hidden bg-signal px-4 py-3 text-signal-ink focus-visible:translate-y-0"
       >
         {ui.skip[locale]}
       </a>
 
-      <header className="sticky top-0 z-40 border-b bg-background">
+      <header className="sticky top-0 z-40 border-b bg-background print:hidden">
         <div className="mx-auto flex max-w-[110rem] flex-wrap items-center justify-between gap-x-6 px-4 sm:px-8">
           <Link href={home} className="display inline-flex min-h-11 items-center text-2xl" aria-label={`${profile.name} · ${ui.home[locale]}`}>
             QTP<span className="text-muted-foreground">.</span>
@@ -65,7 +65,7 @@ export function Shell({ locale, alternateHref, children }: Props) {
         {children}
       </main>
 
-      <footer className="border-t">
+      <footer className="border-t print:hidden">
         <div className="mx-auto flex max-w-[110rem] flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-6 sm:px-8">
           <p className="data text-muted-foreground">
             © {new Date().getFullYear()} {profile.name}
@@ -85,6 +85,11 @@ export function Shell({ locale, alternateHref, children }: Props) {
               <a href={profile.links.linkedin} className={navLink} rel="me">
                 LinkedIn
               </a>
+            </li>
+            <li>
+              <Link href={routes.cv(locale)} className={navLink}>
+                {ui.cv[locale]}
+              </Link>
             </li>
             <li>
               <Link href={routes.accessibility(locale)} className={navLink}>
