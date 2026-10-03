@@ -69,6 +69,9 @@ export const involvement: Entry[] = [
   },
 ];
 
+/** Avancement du diplôme : 5 années, la 3e en cours. */
+export const degreeProgress = { years: 5, current: 3, start: 2024 };
+
 export const education: Entry[] = [
   {
     period: t("2024 – 2029", "2024 – 2029"),
