@@ -6,16 +6,16 @@ const KEY = "qtp-intro";
 
 /**
  * Script exécuté avant le premier affichage : active l'ouverture une seule fois par visite,
- * jamais avec « réduire les animations », jamais sur téléphone (< 768 px). Sans JS, rien ne s'affiche.
+ * jamais avec « réduire les animations ». Sans JS, rien ne s'affiche.
  * « open » : le visiteur vient de choisir l'autre langue sur la couverture, elle s'ouvre directement.
  */
-export const introScript = `try{var v=sessionStorage.getItem("${KEY}");if((!v||v==="open")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&matchMedia("(min-width: 768px)").matches){document.documentElement.dataset.intro=v||"1"}sessionStorage.setItem("${KEY}","1")}catch(e){}`;
+export const introScript = `try{var v=sessionStorage.getItem("${KEY}");if((!v||v==="open")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.dataset.intro=v||"1"}sessionStorage.setItem("${KEY}","1")}catch(e){}`;
 
 const subtitle = { fr: "Développeur · Epitech", en: "Developer · Epitech" };
 /** Les deux entrées, chacune dans sa langue : la couverture sert aussi de choix de langue. */
 const enter = [
-  { locale: "fr", label: "Cliquer pour entrer", href: "/" },
-  { locale: "en", label: "Click to enter", href: "/en" },
+  { locale: "fr", label: "Cliquer pour entrer", touch: "Toucher pour entrer", href: "/" },
+  { locale: "en", label: "Click to enter", touch: "Tap to enter", href: "/en" },
 ] as const;
 
 /**
@@ -51,7 +51,7 @@ export function BookIntro({ locale }: { locale: Locale }) {
                     <span className="block h-0.5 w-16 bg-foreground" />
                     <p className="data text-muted-foreground">{subtitle[locale]}</p>
                     <p className="display text-[clamp(1.25rem,2.4vw,2rem)] tabular">2024 → 2027</p>
-                    <div className="mt-4 flex gap-3">
+                    <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                       {enter.map((e, i) => (
                         <span
                           key={e.locale}
@@ -61,7 +61,9 @@ export function BookIntro({ locale }: { locale: Locale }) {
                           style={{ animationDelay: `${i * 120}ms` }}
                           className={`book-hint data border-2 border-foreground px-4 py-2 transition-colors hover:bg-foreground hover:text-background ${e.locale === locale ? "bg-signal text-signal-ink" : "bg-background"}`}
                         >
-                          {e.label}
+                          {/* Écran tactile : « toucher » ; souris : « cliquer ». */}
+                          <span className="pointer-coarse:hidden">{e.label}</span>
+                          <span className="hidden pointer-coarse:inline">{e.touch}</span>
                         </span>
                       ))}
                     </div>

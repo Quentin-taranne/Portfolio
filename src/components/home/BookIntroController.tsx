@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 /**
- * Ouvre la couverture au clic, à une touche ou à la molette, puis la retire à la fin de la rotation.
+ * Ouvre la couverture au clic (ou toucher), à une touche, à la molette ou en glissant, puis la retire à la fin de la rotation.
  * Un clic sur l'entrée de l'autre langue mène à l'accueil dans cette langue (la couverture s'y ouvre aussitôt).
  */
 export function BookIntroController() {
@@ -12,7 +12,7 @@ export function BookIntroController() {
     if (html.dataset.intro !== "1" && html.dataset.intro !== "open") return;
     const intro = document.querySelector(".book-intro");
     const cover = document.querySelector(".book-cover");
-    const keys = ["keydown", "wheel"] as const;
+    const keys = ["keydown", "wheel", "touchmove"] as const;
     const remove = () => {
       intro?.removeEventListener("click", onClick);
       keys.forEach((e) => window.removeEventListener(e, open));

@@ -238,6 +238,27 @@ html[data-intro="open"] .book-cover {
 .book-back {
   transform: rotateY(180deg);
 }
+/*
+ * Revers masqué tant que la couverture attend : sans transformation en cours,
+ * Safari n'applique pas backface-visibility et afficherait le revers par-dessus la face.
+ */
+html[data-intro="1"] .book-back {
+  visibility: hidden;
+}
+/* Puis il n'apparaît qu'une fois la couverture passée de chant (90° atteints à ~56 % de l'ouverture). */
+html[data-intro="open"] .book-back {
+  animation: back-show var(--book-open) linear both;
+}
+@keyframes back-show {
+  0%,
+  55% {
+    visibility: hidden;
+  }
+  56%,
+  100% {
+    visibility: visible;
+  }
+}
 /* Ombre qui gagne la couverture pendant qu'elle tourne (opacité uniquement). */
 .book-shade {
   opacity: 0;
@@ -286,16 +307,29 @@ html[data-intro="1"] .rise {
   animation-play-state: paused;
 }
 
-/* Jamais sur téléphone, même si la fenêtre est redimensionnée pendant l'attente. */
+/* Téléphone : la couverture se soulève par le haut, comme un bloc-notes (plus naturel en portrait). */
 @media (max-width: 767px) {
-  html[data-intro] .book-intro {
-    display: none;
+  .book-cover {
+    transform-origin: center top;
   }
-  html[data-intro] .page-arrive {
-    animation: none;
+  html[data-intro="open"] .book-cover {
+    animation-name: book-flip;
   }
-  html[data-intro="1"] .rise {
-    animation-play-state: running;
+  .book-back {
+    transform: rotateX(180deg);
+  }
+}
+@keyframes book-flip {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(115deg);
+    opacity: 0;
   }
 }
 @keyframes page-arrive {
