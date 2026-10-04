@@ -2,32 +2,32 @@
 
 import { useEffect } from "react";
 
-/** Termine l'ouverture « livre » à la fin de l'animation, ou l'interrompt (clic, touche, défilement). */
+/** Ouvre la couverture au clic, à une touche ou à la molette, puis la retire à la fin de la rotation. */
 export function BookIntroController() {
   useEffect(() => {
     const html = document.documentElement;
-    if (!html.dataset.intro) return;
+    if (html.dataset.intro !== "1") return;
+    const intro = document.querySelector(".book-intro");
     const cover = document.querySelector(".book-cover");
-    const events = ["pointerdown", "keydown", "wheel", "touchstart"] as const;
+    const keys = ["keydown", "wheel"] as const;
     const remove = () => {
-      events.forEach((e) => window.removeEventListener(e, skip));
+      intro?.removeEventListener("click", open);
+      keys.forEach((e) => window.removeEventListener(e, open));
+    };
+    // Fin de la rotation : la couverture disparaît, la page et le podium finissent leur arrivée.
+    const end = (e: Event) => {
+      if (e.target !== cover) return;
+      html.dataset.intro = "done";
       cover?.removeEventListener("animationend", end);
     };
-    // Fin de la rotation : la couverture disparaît, mais la page et le podium finissent leur arrivée.
-    const end = () => {
-      html.dataset.intro = "done";
+    const open = () => {
+      if (html.dataset.intro !== "1") return;
       remove();
+      cover?.addEventListener("animationend", end);
+      html.dataset.intro = "open";
     };
-    const skip = () => {
-      if (html.dataset.intro === "skip") return;
-      html.dataset.intro = "skip";
-      setTimeout(() => {
-        delete html.dataset.intro;
-        remove();
-      }, 200);
-    };
-    events.forEach((e) => window.addEventListener(e, skip, { passive: true }));
-    cover?.addEventListener("animationend", end);
+    intro?.addEventListener("click", open);
+    keys.forEach((e) => window.addEventListener(e, open, { passive: true }));
     return remove;
   }, []);
   return null;

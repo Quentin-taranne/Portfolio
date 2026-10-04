@@ -11,10 +11,11 @@ const KEY = "qtp-intro";
 export const introScript = `try{if(!sessionStorage.getItem("${KEY}")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&matchMedia("(min-width: 768px)").matches){document.documentElement.dataset.intro="1"}sessionStorage.setItem("${KEY}","1")}catch(e){}`;
 
 const subtitle = { fr: "Développeur · Epitech", en: "Developer · Epitech" };
+const hint = { fr: "Cliquer pour entrer", en: "Click to enter" };
 
 /**
- * Couverture de livre qui s'ouvre sur l'accueil. Calque purement décoratif (aria-hidden) :
- * le site est déjà chargé dessous et utilisable. Un clic, une touche ou le défilement l'interrompt.
+ * Couverture de livre sur l'accueil : fermée jusqu'au clic (ou une touche, ou la molette), puis elle s'ouvre.
+ * Calque décoratif (aria-hidden) : le site est déjà chargé dessous et lisible par les lecteurs d'écran.
  */
 export function BookIntro({ locale }: { locale: Locale }) {
   const [first, ...rest] = profile.name.split(" ");
@@ -44,6 +45,7 @@ export function BookIntro({ locale }: { locale: Locale }) {
                     <span className="block h-0.5 w-16 bg-foreground" />
                     <p className="data text-muted-foreground">{subtitle[locale]}</p>
                     <p className="display text-[clamp(1.25rem,2.4vw,2rem)] tabular">2024 → 2027</p>
+                    <p className="book-hint data mt-4 border-2 border-foreground bg-signal px-4 py-2 text-signal-ink">{hint[locale]}</p>
                   </div>
                 </div>
               </div>
