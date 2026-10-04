@@ -39,7 +39,7 @@ export function BookIntro({ locale }: { locale: Locale }) {
               </span>
             </div>
             <div className="flex flex-1 flex-col">
-              <div className="flex basis-[24%] items-center justify-center border-b-2 border-foreground bg-signal px-6 text-signal-ink">
+              <div className="flex basis-[13%] items-center justify-center border-b-2 border-foreground bg-signal px-6 md:basis-[24%] text-signal-ink">
                 <p className="display text-center text-[clamp(1.5rem,3.4vw,2.75rem)] tracking-[0.06em]">
                   {first} {rest.join(" ")}
                 </p>
@@ -70,7 +70,7 @@ export function BookIntro({ locale }: { locale: Locale }) {
                   </div>
                 </div>
               </div>
-              <div className="flex basis-[11%] items-center justify-center border-t-2 border-foreground">
+              <div className="flex basis-[10%] items-center justify-center border-t-2 border-foreground">
                 <span className="display border-2 border-foreground px-3 pt-1 pb-0.5 text-xl sm:text-2xl">QTP.</span>
               </div>
             </div>

@@ -19,14 +19,40 @@ export const profile = {
 export const status: { label: T; value: T }[] = [
   {
     label: t("Freelance", "Freelance"),
+    value: t("Disponible · sites vitrines, applications web, outils data", "Available · showcase websites, web apps, data tools"),
+  },
+  {
+    label: t("Stage", "Internship"),
     value: t(
-      "Disponible · sites et applications web, outils data, automatisation",
-      "Available · websites and web apps, data tools, automation",
+      "À partir d'avril 2027 · 4 mois · data / IA en priorité, web, logiciel, DevOps",
+      "From April 2027 · 4 months · data / AI first, web, software, DevOps",
     ),
   },
-  { label: t("Stage", "Internship"), value: t("À partir d'avril 2027 · 4 mois", "From April 2027 · 4 months") },
   { label: t("Lieu", "Location"), value: t("La Réunion (UTC+4) · remote", "Réunion Island (UTC+4) · remote") },
 ];
+
+/** Accueil : l'offre freelance et le stage recherché, côte à côte. */
+export const offers = {
+  freelance: {
+    status: t("Disponible", "Available"),
+    title: t("Sites vitrines, applications web, outils data", "Showcase websites, web apps, data tools"),
+    rows: [
+      { label: t("Réalise", "Delivers"), value: t("Développement complet et mise en ligne · tableaux de bord (Power BI) et analyses (Python)", "Full development and deployment · dashboards (Power BI) and analysis (Python)") },
+      { label: t("Cadre", "Setup"), value: t("Micro-entreprise depuis oct. 2026 · La Réunion (UTC+4) · remote", "Sole proprietorship since Oct 2026 · Réunion Island (UTC+4) · remote") },
+    ],
+    /** Réalisation en ligne, liée à sa page projet. */
+    example: "piano-concerto-festival",
+  },
+  internship: {
+    status: t("Avril 2027 · 4 mois", "April 2027 · 4 months"),
+    title: t("Data / IA en priorité", "Data / AI first"),
+    rows: [
+      { label: t("Aussi", "Also"), value: t("Développement web · logiciel / systèmes · DevOps / cloud", "Web development · software / systems · DevOps / cloud") },
+      { label: t("Lieu", "Location"), value: t("La Réunion ou remote", "Réunion Island or remote") },
+      { label: t("Formation", "Studies"), value: t("Epitech · 3e année sur 5", "Epitech · 3rd year of 5") },
+    ],
+  },
+};
 
 export const experience: Entry[] = [
   {
@@ -71,7 +97,7 @@ export const experience: Entry[] = [
     points: [
       t("Piano Concerto Festival : site complet en PHP, en ligne", "Piano Concerto Festival: full website in PHP, live"),
       t("Autres projets en cours de réalisation", "Other projects in progress"),
-      t("Sites et applications web, outils data, automatisation", "Websites and web apps, data tools, automation"),
+      t("Sites vitrines, applications web, outils data", "Showcase websites, web apps, data tools"),
     ],
   },
 ];

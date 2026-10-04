@@ -24,8 +24,8 @@ Tout le texte est dans `src/content/`, chaque chaîne en `{ fr, en }`.
 
 | Fichier | Contenu |
 | --- | --- |
-| `projects.ts` | Projets. `featured: true` = affiché sur l'accueil ; `rank` = podium ; `media` = images et vidéos |
-| `profile.ts` | Identité, disponibilité, expérience, engagement, diplôme, stack, repères du parcours |
+| `projects.ts` | Projets. `featured: true` = affiché sur l'accueil ; `rank` = classement en compétition ; `media` = images et vidéos |
+| `profile.ts` | Identité, offres de l'accueil (`offers` : freelance, stage), disponibilité, expérience, engagement, diplôme, stack, repères du parcours |
 | `accessibility.ts` | Déclaration d'accessibilité |
 | `ui.ts` | Libellés de l'interface, titre et description |
 
@@ -44,7 +44,7 @@ Production : **https://www.quentin-taranne.dev** (`quentin-taranne.dev` redirige
 
 - Neutres : papier et encre. Trois couleurs de surface : jaune chrono (`signal`), bleu piste (`sky`), orange (`ember`).
 - Les couleurs ne sont jamais du texte : ce sont des fonds, toujours avec l'encre fixe `--signal-ink` (contraste ≥ 9,7:1). Elles ne portent jamais seules une information.
-- Usage : podium (1er jaune, 2e bleu, 3e orange), catégorie des projets (Freelance, EDF, Compétition), bandeaux du parcours (Expérience, Engagement, Diplôme), contact.
+- Usage : offres de l'accueil (Freelance jaune, Stage bleu), catégorie des projets (Freelance, EDF, Compétition), repères du parcours (Expérience, Engagement, Diplôme), contact.
 - Polices : Big Shoulders (titres, interlignage 1), Geist, Geist Mono.
 
 ## Structure

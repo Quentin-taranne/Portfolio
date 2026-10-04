@@ -18,7 +18,7 @@ export function BookIntroController() {
       keys.forEach((e) => window.removeEventListener(e, open));
       cover?.removeEventListener("animationend", end);
     };
-    // Fin de la rotation : la couverture disparaît, la page et le podium finissent leur arrivée.
+    // Fin de la rotation : la couverture disparaît, la page finit son arrivée.
     const end = (e: Event) => {
       if (e.target !== cover) return;
       html.dataset.intro = "done";

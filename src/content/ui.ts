@@ -14,8 +14,11 @@ export const ui = {
   switchToLabel: t("Read in English", "Lire en français"),
   darkTheme: t("Thème sombre", "Dark theme"),
 
-  podium: t("Podium", "Podium"),
-  podiumHint: t("Classements obtenus en compétition", "Competition rankings"),
+  freelance: t("Freelance", "Freelance"),
+  internshipTitle: t("Stage de 3e année", "3rd-year internship"),
+  onlineExample: t("En ligne", "Live"),
+  askQuote: t("Demander un devis", "Request a quote"),
+  quoteSubject: t("Demande de devis", "Quote request"),
   rankSuffix: { 1: t("er", "st"), 2: t("e", "nd"), 3: t("e", "rd") } as Record<1 | 2 | 3, T>,
   available: t("Freelance : disponible", "Freelance: available"),
   internship: t("Stage : avril 2027 · 4 mois", "Internship: April 2027 · 4 months"),
