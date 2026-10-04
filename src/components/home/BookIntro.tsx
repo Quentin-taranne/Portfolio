@@ -31,7 +31,7 @@ export function BookIntro({ locale }: { locale: Locale }) {
       <BookIntroController />
       <div aria-hidden className="book-intro pointer-events-none fixed inset-0 z-[90]">
         <div className="book-cover absolute inset-0">
-          {/* Face avant : tri-band (bande auteur, bande titre encadrée, bande éditeur) et dos à gauche. */}
+          {/* Face avant : bande auteur (couleur), titre encadré, marque de l'éditeur sur papier ; dos noir à gauche. */}
           <div className="book-face absolute inset-0 flex bg-background text-foreground">
             <div className="flex w-10 shrink-0 items-center justify-center border-r-2 border-foreground bg-foreground sm:w-14">
               <span className="data rotate-180 whitespace-nowrap text-background [writing-mode:vertical-rl]">
@@ -68,8 +68,8 @@ export function BookIntro({ locale }: { locale: Locale }) {
                   </div>
                 </div>
               </div>
-              <div className="flex basis-[16%] items-center justify-center border-t-2 border-foreground bg-foreground">
-                <span className="display border-2 border-background px-4 pt-1.5 pb-0.5 text-2xl text-background sm:text-3xl">QTP.</span>
+              <div className="flex basis-[11%] items-center justify-center border-t-2 border-foreground">
+                <span className="display border-2 border-foreground px-3 pt-1 pb-0.5 text-xl sm:text-2xl">QTP.</span>
               </div>
             </div>
             <div className="book-shade pointer-events-none absolute inset-0 bg-black" />
