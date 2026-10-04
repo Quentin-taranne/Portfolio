@@ -220,6 +220,64 @@
   animation-delay: calc(250ms + var(--i) * 170ms);
 }
 
+/* ---------- Ouverture « livre » (accueil, une fois par visite) ---------- */
+/* Masquée par défaut : seul le script d'en-tête l'active (jamais sans JS ni avec « réduire les animations »). */
+.book-intro {
+  display: none;
+}
+html[data-intro] .book-intro {
+  display: block;
+}
+.book-intro {
+  perspective: 2200px;
+}
+.book-cover {
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  animation: book-open 950ms cubic-bezier(0.6, 0, 0.3, 1) 550ms both;
+}
+.book-face,
+.book-back {
+  backface-visibility: hidden;
+}
+.book-back {
+  transform: rotateY(180deg);
+}
+/* Ombre qui gagne la couverture pendant qu'elle tourne (opacité uniquement). */
+.book-shade {
+  animation: book-shade 950ms cubic-bezier(0.6, 0, 0.3, 1) 550ms both;
+}
+@keyframes book-open {
+  0% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(-115deg);
+    opacity: 0;
+  }
+}
+@keyframes book-shade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+/* Ouverture interrompue (clic, touche, défilement) : simple fondu court. */
+html[data-intro="skip"] .book-intro {
+  animation: book-skip 180ms ease-out both;
+}
+@keyframes book-skip {
+  to {
+    opacity: 0;
+  }
+}
+
 /* ---------- Impression (page CV) ---------- */
 @page {
   size: A4;

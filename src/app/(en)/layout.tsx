@@ -4,7 +4,7 @@ import "../globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={fontClasses}>
+    <html lang="en" className={fontClasses} suppressHydrationWarning>
       <body>
         <TooltipProvider delayDuration={300}>{children}</TooltipProvider>
       </body>
