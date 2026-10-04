@@ -30,11 +30,12 @@ export function Shell({ locale, alternateHref, children }: Props) {
       </a>
 
       <header className="sticky top-0 z-40 border-b bg-background print:hidden">
-        <div className="mx-auto flex max-w-[110rem] flex-wrap items-center justify-between gap-x-6 px-4 sm:px-8">
+        {/* Mobile : logo + langue sur la 1re ligne, navigation sur la 2e. Grand écran : une seule ligne. */}
+        <div className="mx-auto grid max-w-[110rem] grid-cols-[1fr_auto] items-center gap-x-6 px-4 sm:flex sm:justify-between sm:px-8">
           <Link href={home} className="display inline-flex min-h-11 items-center text-2xl" aria-label={`${profile.name} · ${ui.home[locale]}`}>
             QTP<span className="text-muted-foreground">.</span>
           </Link>
-          <nav aria-label={ui.navLabel[locale]}>
+          <nav aria-label={ui.navLabel[locale]} className="col-span-2 row-start-2 sm:ml-auto">
             <ul className="flex flex-wrap items-center gap-x-3 sm:gap-x-8">
               <li>
                 <Link href={routes.projects(locale)} className={navLink}>
@@ -52,12 +53,21 @@ export function Shell({ locale, alternateHref, children }: Props) {
                 </Link>
               </li>
               <li>
-                <Link href={alternateHref} hrefLang={other} lang={other} className={navLink} aria-label={ui.switchToLabel[locale]}>
-                  {other.toUpperCase()}
+                <Link href={routes.cv(locale)} className={navLink}>
+                  {ui.cv[locale]}
                 </Link>
               </li>
             </ul>
           </nav>
+          <Link
+            href={alternateHref}
+            hrefLang={other}
+            lang={other}
+            className={`${navLink} col-start-2 row-start-1 justify-self-end`}
+            aria-label={ui.switchToLabel[locale]}
+          >
+            {other.toUpperCase()}
+          </Link>
         </div>
       </header>
 

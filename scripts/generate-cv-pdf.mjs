@@ -1,4 +1,4 @@
-// Génère les PDF du CV (FR et EN) à partir de la page /cv du site.
+// Génère les PDF du CV (FR et EN) et leurs aperçus PNG à partir de la page /cv du site.
 // Usage : npm run build && npm run cv:pdf
 // Les fichiers sont écrits dans public/cv/ ; le script échoue si un CV dépasse une page.
 import { spawn } from "node:child_process";
@@ -9,9 +9,11 @@ const PORT = 4310;
 const BASE = `http://localhost:${PORT}`;
 const OUT = "public/cv";
 const FILES = [
-  { path: "/cv", file: "CV-Quentin-Taranne-Payet-FR.pdf" },
-  { path: "/en/cv", file: "CV-Quentin-Taranne-Payet-EN.pdf" },
+  { path: "/cv", file: "CV-Quentin-Taranne-Payet-FR.pdf", preview: "cv-preview-fr.png" },
+  { path: "/en/cv", file: "CV-Quentin-Taranne-Payet-EN.pdf", preview: "cv-preview-en.png" },
 ];
+// Aperçu : une page A4 à 96 dpi (794 × 1123 px), marges de 12 mm comme à l'impression.
+const PREVIEW = { width: 794, height: 1123 };
 
 const server = spawn("npx", ["next", "start", "-p", String(PORT)], { stdio: "ignore" });
 const stop = () => server.kill();
@@ -29,13 +31,22 @@ try {
   await mkdir(OUT, { recursive: true });
   const browser = await chromium.launch();
   const page = await browser.newPage();
-  for (const { path, file } of FILES) {
+  for (const { path, file, preview } of FILES) {
     await page.goto(BASE + path, { waitUntil: "networkidle" });
     const pdf = await page.pdf({ format: "A4", printBackground: true, preferCSSPageSize: true });
     const pages = (pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
     if (pages !== 1) throw new Error(`${file} fait ${pages} pages : le CV doit tenir sur une seule.`);
     await writeFile(`${OUT}/${file}`, pdf);
     console.log(`✓ ${OUT}/${file} (1 page, ${Math.round(pdf.length / 1024)} Ko)`);
+
+    // Aperçu de la page imprimée, utilisé par la « quatrième de couverture » de l'accueil.
+    const shot = await browser.newPage({ viewport: PREVIEW });
+    await shot.goto(BASE + path, { waitUntil: "networkidle" });
+    await shot.emulateMedia({ media: "print", colorScheme: "light" });
+    await shot.addStyleTag({ content: "body{padding:12mm!important;background:#fff!important}" });
+    await shot.screenshot({ path: `${OUT}/${preview}` });
+    await shot.close();
+    console.log(`✓ ${OUT}/${preview}`);
   }
   await browser.close();
 } catch (e) {

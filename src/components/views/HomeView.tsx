@@ -1,3 +1,4 @@
+import { BackCover } from "@/components/home/BackCover";
 import { BookIntro, introScript } from "@/components/home/BookIntro";
 import { Contact } from "@/components/home/Contact";
 import { Hero } from "@/components/home/Hero";
@@ -27,6 +28,7 @@ export function HomeView({ locale }: { locale: Locale }) {
           <ProjectIndex locale={locale} />
           <Journey locale={locale} />
           <Stack locale={locale} />
+          <BackCover locale={locale} />
           <Contact locale={locale} />
         </Shell>
       </div>
