@@ -33,7 +33,10 @@ function Line({ at, className = "", children }: { at: number; className?: string
 }
 
 /** Ligne « recherche » : lien sur toute la ligne, intitulé, détail, action écrite à droite. */
-function Wanted({ at, href, title, detail, action, color, live, locale }: { at: number; href: string; title: T; detail: T; action: T; color: string; live?: boolean; locale: Locale }) {
+/** Mouvement continu du repère : « live » = disponible maintenant (onde), « tick » = à venir (quart de tour régulier). */
+type Pulse = "h-live" | "h-tick";
+
+function Wanted({ at, href, title, detail, action, color, pulse, locale }: { at: number; href: string; title: T; detail: T; action: T; color: string; pulse: Pulse; locale: Locale }) {
   const Tag = href.startsWith("mailto:") ? "a" : Link;
   return (
     <li className="relative">
@@ -43,7 +46,9 @@ function Wanted({ at, href, title, detail, action, color, live, locale }: { at: 
       >
         <span className="min-w-0">
           <span className="flex items-center gap-2.5 text-lg font-medium">
-            <span aria-hidden className={`h-stamp relative size-2.5 shrink-0 border border-foreground ${color} ${live ? "h-live" : ""}`} style={d(at)} />
+            <span aria-hidden className={`h-stamp relative size-2.5 shrink-0 ${pulse}`} style={d(at)}>
+              <span className={`h-mark absolute inset-0 border border-foreground ${color}`} />
+            </span>
             <Line at={at + 40}>{title[locale]}</Line>
           </span>
           <Line at={at + 120} className="mt-1 text-muted-foreground">
@@ -129,8 +134,8 @@ export function Hero({ locale }: { locale: Locale }) {
       <div data-hero-block className="space-y-10 lg:col-span-5 lg:pb-2">
         <HeroReveal />
         <Group id="hero-wanted" at={0} title={ui.lookingFor[locale]}>
-          <Wanted at={200} href={quote} title={offers.freelance.title} detail={offers.freelance.detail} action={ui.askQuote} color="bg-signal" live locale={locale} />
-          <Wanted at={460} href={routes.cv(locale)} title={offers.internship.title} detail={offers.internship.detail} action={ui.viewCv} color="bg-sky" locale={locale} />
+          <Wanted at={200} href={quote} title={offers.freelance.title} detail={offers.freelance.detail} action={ui.askQuote} color="bg-signal" pulse="h-live" locale={locale} />
+          <Wanted at={460} href={routes.cv(locale)} title={offers.internship.title} detail={offers.internship.detail} action={ui.viewCv} color="bg-sky" pulse="h-tick" locale={locale} />
         </Group>
         {/* Groupe déclenché à part (au défilement sur téléphone) ; sur ordinateur, il suit le premier. */}
         <Group id="hero-now" at={0} title={ui.now[locale]} className="lg:[--g:760ms]">

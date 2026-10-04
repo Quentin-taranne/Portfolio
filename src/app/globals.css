@@ -204,6 +204,20 @@ html[data-hero="go"] .h-live::after {
   border: 1px solid var(--foreground);
   animation: h-live 2.4s ease-out 1.6s infinite both;
 }
+/* « À venir » : le repère bleu avance d'un quart de tour toutes les 4 s, comme une aiguille (le carré tourne, pas le tampon). */
+html[data-hero] [data-shown] .h-tick .h-mark,
+html[data-hero="go"] .h-tick .h-mark {
+  animation: h-tick 4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s infinite;
+}
+@keyframes h-tick {
+  0% {
+    transform: rotate(0deg);
+  }
+  18%,
+  100% {
+    transform: rotate(90deg);
+  }
+}
 @keyframes h-rise {
   from {
     transform: translateY(110%);
@@ -471,7 +485,8 @@ html[data-intro="1"] .page-arrive {
   .h-rule,
   .h-stamp,
   .h-arrow,
-  .h-live::after {
+  .h-live::after,
+  .h-tick .h-mark {
     animation: none !important;
   }
   html {
