@@ -25,16 +25,12 @@ const pdfFile = { fr: "CV-Quentin-Taranne-Payet-FR.pdf", en: "CV-Quentin-Taranne
 
 const short = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
-/** États mis en étiquette (même couleur d'accent : ce sont deux disponibilités). */
-const LABELED = new Set(["Freelance", "Internship"]);
 
 /** Rubrique du CV : titre mono souligné d'un filet, puis contenu. */
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="break-inside-avoid">
-      <h2 className="data flex items-center gap-2 border-b-2 border-foreground pb-1 font-medium text-foreground">
-        {/* Une seule couleur d'accent, identique partout : décorative, elle ne code aucune information. */}
-        <span aria-hidden className="size-2.5 shrink-0 border border-signal-ink bg-signal" />
+      <h2 className="data border-b-2 border-foreground pb-1 font-medium text-foreground">
         {title}
       </h2>
       <div className="mt-2.5 print:mt-1.5">{children}</div>
@@ -100,7 +96,11 @@ export async function CvView({ locale }: { locale: Locale }) {
 
         {/* La feuille : 210 mm de large, texte compact pour tenir sur une page A4. */}
         <article className="cv-sheet [print-color-adjust:exact] mx-auto max-w-[210mm] border bg-card p-6 text-[0.8125rem] leading-snug sm:p-[12mm] print:max-w-none print:text-[9.5pt] print:leading-[1.27] print:border-0 print:bg-transparent print:p-0">
-          <header className="grid gap-4 border-b-2 border-foreground pb-4 sm:grid-cols-[auto_1fr_auto] sm:gap-6 print:pb-2.5">
+          {/*
+           * Seule couleur du CV : le bandeau d'en-tête, comme la bande du nom sur la couverture du livre.
+           * Elle ne code aucune information ; le texte y est toujours à l'encre fixe (contraste ≥ 9,7:1).
+           */}
+          <header className="grid gap-4 border-2 border-signal-ink bg-signal p-4 text-signal-ink [--foreground:var(--signal-ink)] [--muted-foreground:var(--signal-ink)] [--ring:var(--signal-ink)] sm:grid-cols-[auto_1fr_auto] sm:gap-6 print:p-[3.5mm]">
             <Image
               src={profile.photo.src}
               alt={profile.photo.alt[locale]}
@@ -108,7 +108,7 @@ export async function CvView({ locale }: { locale: Locale }) {
               height={profile.photo.height}
               sizes="7rem"
               loading="eager"
-              className="size-28 border object-cover print:size-[27mm]"
+              className="size-28 border border-signal-ink object-cover print:size-[27mm]"
             />
             <div>
               <h1 className="display text-[2.25rem] print:text-[1.75rem]">
@@ -119,14 +119,7 @@ export async function CvView({ locale }: { locale: Locale }) {
               <ul className="mt-2 space-y-0.5 text-muted-foreground">
                 {status.map((s) => (
                   <li key={s.label.en}>
-                    {LABELED.has(s.label.en) ? (
-                      <span className="data mr-1 inline-block border border-signal-ink bg-signal px-1.5 leading-normal text-signal-ink">
-                        {s.label[locale]}
-                      </span>
-                    ) : (
-                      <span className="font-medium text-foreground">{s.label[locale]} · </span>
-                    )}
-                    {s.value[locale]}
+                    <span className="font-medium text-foreground">{s.label[locale]}</span> · {s.value[locale]}
                   </li>
                 ))}
               </ul>
