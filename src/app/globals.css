@@ -407,13 +407,12 @@ html[data-intro="1"] .page-arrive {
     opacity: 0;
   }
 }
+/* Transformation seule : la page reste opaque (contraste intact, même figée sous la couverture). */
 @keyframes page-arrive {
   0% {
-    opacity: 0.85;
     transform: translateY(2.5rem) scale(0.965);
   }
   65% {
-    opacity: 1;
     transform: translateY(-0.4rem) scale(1.004);
   }
   85% {

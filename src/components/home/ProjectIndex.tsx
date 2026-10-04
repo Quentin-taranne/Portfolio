@@ -110,7 +110,7 @@ export function MinorProjects({ locale }: { locale: Locale }) {
 export function ProjectIndex({ locale }: { locale: Locale }) {
   const featured = projects.filter((p) => p.featured);
   return (
-    <section id="projets" aria-labelledby="projets-title" className="mx-auto max-w-[110rem] scroll-mt-16 px-4 py-20 sm:px-8 lg:py-28">
+    <section id="projets" aria-labelledby="projets-title" className="mx-auto max-w-[110rem] scroll-mt-28 sm:scroll-mt-16 px-4 py-20 sm:px-8 lg:py-28">
       <SectionHeading id="projets-title" title={ui.projects[locale]} count={projects.length} />
       <ProjectList items={featured} locale={locale} />
       <div className="mt-8 flex justify-end">

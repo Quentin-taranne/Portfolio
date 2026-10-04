@@ -162,7 +162,7 @@ export function JourneyDetails({ locale }: { locale: Locale }) {
 /** Section de l'accueil : la règle, puis un lien vers la page complète. */
 export function Journey({ locale }: { locale: Locale }) {
   return (
-    <section id="parcours" aria-labelledby="parcours-title" className="mx-auto max-w-[110rem] scroll-mt-16 px-4 py-20 sm:px-8 lg:py-28">
+    <section id="parcours" aria-labelledby="parcours-title" className="mx-auto max-w-[110rem] scroll-mt-28 sm:scroll-mt-16 px-4 py-20 sm:px-8 lg:py-28">
       <SectionHeading id="parcours-title" title={ui.journey[locale]} />
       <MilestoneRuler locale={locale} />
       <div className="mt-10 flex justify-end">

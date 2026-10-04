@@ -33,8 +33,13 @@ export function Shell({ locale, alternateHref, children }: Props) {
       <header className="sticky top-0 z-40 border-b bg-background print:hidden">
         {/* Mobile : logo + langue sur la 1re ligne, navigation sur la 2e. Grand écran : une seule ligne. */}
         <div className="mx-auto grid max-w-[110rem] grid-cols-[1fr_auto] items-center gap-x-6 px-4 sm:flex sm:justify-between sm:px-8">
-          <Link href={home} className="display inline-flex min-h-11 items-center text-2xl" aria-label={`${profile.name} · ${ui.home[locale]}`}>
+          {/* Nom accessible = texte visible + précision (WCAG 2.5.3 : « QTP » doit pouvoir être prononcé en commande vocale). */}
+          <Link href={home} className="display inline-flex min-h-11 items-center text-2xl">
             QTP<span className="text-muted-foreground">.</span>
+            <span className="sr-only">
+              {" "}
+              {profile.name} · {ui.home[locale]}
+            </span>
           </Link>
           <nav aria-label={ui.navLabel[locale]} className="col-span-2 row-start-2 sm:ml-auto">
             <ul className="flex flex-wrap items-center gap-x-3 sm:gap-x-8">

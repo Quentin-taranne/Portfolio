@@ -11,14 +11,16 @@ const link = "inline-flex min-h-6 items-center font-medium underline decoration-
 /** Contact : bloc jaune, adresse en très grand. Le texte est toujours en encre fixe. */
 export function Contact({ locale }: { locale: Locale }) {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-16 bg-signal text-signal-ink [--ring:var(--signal-ink)]">
+    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-28 sm:scroll-mt-16 bg-signal text-signal-ink [--ring:var(--signal-ink)]">
       <div className="mx-auto max-w-[110rem] px-4 py-20 sm:px-8 lg:py-28">
         <h2 id="contact-title" className="display text-giant">
           {ui.contact[locale]}
         </h2>
-        <p className="mt-8 font-display text-[clamp(1.75rem,5.5vw,5rem)] leading-[1.1] font-extrabold [overflow-wrap:anywhere]">
+        {/* Sur téléphone, l'adresse passe à la ligne avant « @ », jamais au milieu de « .com ». */}
+        <p className="mt-8 font-display text-[clamp(1.75rem,5.5vw,5rem)] leading-[1.1] font-extrabold">
           <a href={`mailto:${profile.email}`} className="underline decoration-2 underline-offset-[0.12em] hover:decoration-4">
-            {profile.email}
+            {profile.email.split("@")[0]}
+            <wbr />@{profile.email.split("@")[1]}
           </a>
         </p>
         <div className="mt-8 flex flex-wrap gap-3 [--background:var(--signal)] [--foreground:var(--signal-ink)] [--primary:var(--signal-ink)] [--primary-foreground:var(--signal)]">
