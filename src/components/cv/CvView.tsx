@@ -1,6 +1,8 @@
+import { Download } from "lucide-react";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { PrintButton } from "@/components/cv/PrintButton";
+import { Button } from "@/components/ui/button";
 import { Shell } from "@/components/site/Shell";
 import { degreeProgress, education, experience, extras, involvement, profile, skills, status } from "@/content/profile";
 import { minorProjects, projects } from "@/content/projects";
@@ -17,6 +19,9 @@ export const cvMetadata = (locale: Locale) =>
     paths: { fr: routes.cv("fr"), en: routes.cv("en") },
   });
 
+/** Fichiers générés par `npm run cv:pdf` (scripts/generate-cv-pdf.mjs). */
+const pdfFile = { fr: "CV-Quentin-Taranne-Payet-FR.pdf", en: "CV-Quentin-Taranne-Payet-EN.pdf" } as const;
+
 const short = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 /** Rubrique du CV : titre mono souligné d'un filet, puis contenu. */
@@ -24,7 +29,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="break-inside-avoid">
       <h2 className="data border-b-2 border-foreground pb-1 font-medium text-foreground">{title}</h2>
-      <div className="mt-2.5">{children}</div>
+      <div className="mt-2.5 print:mt-1.5">{children}</div>
     </section>
   );
 }
@@ -43,14 +48,19 @@ export function CvView({ locale }: { locale: Locale }) {
   return (
     <Shell locale={locale} alternateHref={routes.cv(otherLocale(locale))}>
       <div className="mx-auto max-w-[110rem] px-4 pt-8 pb-20 sm:px-8 print:p-0">
-        <div className="mx-auto mb-6 flex max-w-[210mm] flex-wrap items-center justify-between gap-4 print:hidden">
-          <p className="text-sm text-muted-foreground">{ui.printHint[locale]}</p>
+        <div className="mx-auto mb-6 flex max-w-[210mm] flex-wrap justify-end gap-3 print:hidden">
+          <Button asChild variant="signal">
+            <a href={`/cv/${pdfFile[locale]}`} download>
+              <Download aria-hidden />
+              {ui.downloadPdf[locale]}
+            </a>
+          </Button>
           <PrintButton label={ui.print[locale]} />
         </div>
 
         {/* La feuille : 210 mm de large, texte compact pour tenir sur une page A4. */}
-        <article className="cv-sheet mx-auto max-w-[210mm] border bg-card p-6 text-[0.8125rem] leading-snug sm:p-[12mm] print:max-w-none print:border-0 print:bg-transparent print:p-0">
-          <header className="grid gap-4 border-b-2 border-foreground pb-4 sm:grid-cols-[auto_1fr_auto] sm:gap-6">
+        <article className="cv-sheet mx-auto max-w-[210mm] border bg-card p-6 text-[0.8125rem] leading-snug sm:p-[12mm] print:max-w-none print:text-[9.5pt] print:leading-[1.32] print:border-0 print:bg-transparent print:p-0">
+          <header className="grid gap-4 border-b-2 border-foreground pb-4 sm:grid-cols-[auto_1fr_auto] sm:gap-6 print:pb-2.5">
             <Image
               src={profile.photo.src}
               alt={profile.photo.alt[locale]}
@@ -58,10 +68,10 @@ export function CvView({ locale }: { locale: Locale }) {
               height={profile.photo.height}
               sizes="7rem"
               loading="eager"
-              className="size-28 border object-cover print:size-[30mm]"
+              className="size-28 border object-cover print:size-[27mm]"
             />
             <div>
-              <h1 className="display text-[2.25rem]">
+              <h1 className="display text-[2.25rem] print:text-[1.75rem]">
                 <span className="block">{profile.name.split(" ")[0]}</span>
                 <span className="block">{profile.name.split(" ").slice(1).join(" ")}</span>
               </h1>
@@ -106,10 +116,10 @@ export function CvView({ locale }: { locale: Locale }) {
             </ul>
           </header>
 
-          <div className="mt-5 grid gap-6 sm:grid-cols-[1fr_15rem] sm:gap-8 print:grid-cols-[1fr_58mm]">
-            <div className="space-y-5">
+          <div className="mt-5 grid gap-6 sm:grid-cols-[1fr_15rem] sm:gap-8 print:mt-3 print:grid-cols-[1fr_56mm] print:gap-6">
+            <div className="space-y-5 print:space-y-4">
               <Block title={ui.experience[locale]}>
-                <ul className="space-y-3">
+                <ul className="space-y-3 print:space-y-1.5">
                   {experience.map((e) => (
                     <li key={e.title.en} className="break-inside-avoid">
                       <p className="flex flex-wrap justify-between gap-x-3">
@@ -125,7 +135,7 @@ export function CvView({ locale }: { locale: Locale }) {
               </Block>
 
               <Block title={ui.selectedProjects[locale]}>
-                <ul className="space-y-2.5">
+                <ul className="space-y-2.5 print:space-y-1">
                   {selected.map((p) => (
                     <li key={p.slug} className="break-inside-avoid">
                       <p className="flex flex-wrap justify-between gap-x-3">
@@ -140,7 +150,7 @@ export function CvView({ locale }: { locale: Locale }) {
                     </li>
                   ))}
                 </ul>
-                <p className="mt-2.5 text-muted-foreground">
+                <p className="mt-2.5 text-muted-foreground print:mt-1.5">
                   <span className="font-medium text-foreground">{ui.otherProjects[locale]}</span> · {others.join(", ")}
                 </p>
               </Block>
@@ -157,7 +167,7 @@ export function CvView({ locale }: { locale: Locale }) {
               </Block>
             </div>
 
-            <aside className="space-y-5">
+            <aside className="space-y-5 print:space-y-4">
               <Block title={ui.results[locale]}>
                 <ul className="space-y-1">
                   {ranked.map((p) => (
@@ -184,7 +194,7 @@ export function CvView({ locale }: { locale: Locale }) {
               </Block>
 
               <Block title={ui.skills[locale]}>
-                <dl className="space-y-1.5">
+                <dl className="space-y-1.5 print:space-y-1">
                   {skills.map((s) => (
                     <div key={s.label.en}>
                       <dt className="font-medium">{s.label[locale]}</dt>

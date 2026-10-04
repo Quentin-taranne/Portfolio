@@ -30,7 +30,7 @@ Tout le texte est dans `src/content/`, chaque chaîne en `{ fr, en }`.
 | `ui.ts` | Libellés de l'interface, titre et description |
 
 - Un champ absent n'est pas affiché (`result`, `media`, `links`, `period`, `detail`).
-- **CV** : page `/cv` (et `/en/cv`) générée depuis ces mêmes données, imprimable sur une page A4 (bouton « Imprimer / PDF »). Photo : `public/media/portrait.jpg` (`profile.photo`).
+- **CV** : page `/cv` (et `/en/cv`) générée depuis ces mêmes données, imprimable sur une page A4. Les PDF téléchargeables (`public/cv/`) sont générés par `npm run build && npm run cv:pdf` : **à relancer après chaque modification du contenu** (le script échoue si le CV dépasse une page). Photo : `public/media/portrait.jpg` (`profile.photo`).
 - **Médias** : `public/media/`. Les images passent par `next/image` (AVIF/WebP, `srcset`) ; les vidéos sont muettes, avec bouton lecture / pause.
 
 ## Domaine
