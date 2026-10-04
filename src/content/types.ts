@@ -41,4 +41,9 @@ export type Entry = {
   detail?: T;
   /** Points détaillés, affichés sur la page Parcours et le CV. */
   points?: T[];
+  /**
+   * Dates pour la frise, au format « AAAA-MM » (ou « AAAA » si le mois n'est pas connu).
+   * Sans `to` : en cours. `step` : changement de rôle (date et nouveau rôle).
+   */
+  span?: { from: string; to?: string; step?: { at: string; label: T } };
 };

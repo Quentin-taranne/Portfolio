@@ -37,8 +37,8 @@ function Points({ items, locale }: { items?: Entry["points"]; locale: Locale }) 
   return (
     <ul className="mt-3 space-y-1.5">
       {items.map((p) => (
-        <li key={p.en} className="flex gap-2.5">
-          <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-foreground" />
+        <li key={p.en} className="flex gap-3">
+          <span aria-hidden className="mt-[0.6em] h-px w-3 shrink-0 bg-foreground" />
           {p[locale]}
         </li>
       ))}
@@ -46,60 +46,64 @@ function Points({ items, locale }: { items?: Entry["points"]; locale: Locale }) 
   );
 }
 
-/** Partie du parcours : panneau encadré, bandeau de titre coloré (le titre porte l'information). */
+/**
+ * Partie du parcours : filet, puis titre (colonne collante) et entrées.
+ * La couleur n'est qu'un repère, comme la catégorie des projets : le titre porte l'information.
+ */
 function Part({ index, id, title, color, children }: { index: string; id: string; title: string; color: string; children: React.ReactNode }) {
   return (
-    <section aria-labelledby={id} className="reveal mt-16 border-2 border-foreground lg:mt-20">
-      <div className={`flex items-baseline gap-4 border-b-2 border-foreground px-5 py-4 text-signal-ink lg:px-8 lg:py-5 ${color}`}>
-        <span className="data tabular">{index}</span>
-        <h2 id={id} className="display text-[clamp(1.75rem,3vw,2.75rem)]">
+    <section aria-labelledby={id} className="reveal mt-16 grid gap-6 border-t border-foreground pt-6 lg:mt-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] lg:gap-10">
+      <div className="lg:sticky lg:top-24 lg:self-start">
+        <p className="data flex items-center gap-2 text-muted-foreground tabular">
+          <span aria-hidden className={`size-2.5 border border-foreground ${color}`} />
+          {index}
+        </p>
+        <h2 id={id} className="display mt-3 text-[clamp(2rem,3.4vw,3rem)]">
           {title}
         </h2>
       </div>
-      <div className="bg-card px-5 lg:px-8">{children}</div>
+      {children}
     </section>
   );
 }
 
-/** 01 · Expérience : une ligne par poste, période en grand. */
+/** Une entrée : période, intitulé et organisation, puis contexte et puces. */
+function EntryRow({ entry, locale }: { entry: Entry; locale: Locale }) {
+  return (
+    <li className="grid gap-x-8 gap-y-3 border-b py-6 first:pt-0 md:grid-cols-[9.5rem_minmax(0,1fr)] xl:grid-cols-[10.5rem_minmax(0,0.85fr)_minmax(0,1.15fr)]">
+      <p className="data pt-1.5 text-muted-foreground tabular">{entry.period?.[locale]}</p>
+      <div>
+        <h3 className="display text-balance text-[clamp(1.375rem,1.9vw,1.75rem)]">{entry.title[locale]}</h3>
+        <p className="data mt-1.5 text-muted-foreground">{entry.org[locale]}</p>
+      </div>
+      <div className="md:col-start-2 xl:col-start-auto">
+        {entry.detail && <p className="text-muted-foreground">{entry.detail[locale]}</p>}
+        <Points items={entry.points} locale={locale} />
+      </div>
+    </li>
+  );
+}
+
+/** 01 · Expérience */
 function ExperiencePart({ locale }: { locale: Locale }) {
   return (
     <Part index="01" id="experience-title" title={ui.experience[locale]} color="bg-sky">
       <ol>
         {experience.map((e) => (
-          <li key={e.title.en} className="grid gap-x-8 gap-y-3 border-b py-7 last:border-b-0 lg:grid-cols-12 lg:py-8">
-            <p className="display text-[clamp(1.5rem,2.4vw,2.125rem)] tabular lg:col-span-3">{e.period?.[locale]}</p>
-            <div className="lg:col-span-4">
-              <h3 className="text-xl font-medium">{e.title[locale]}</h3>
-              <p className="data mt-1.5 text-muted-foreground">{e.org[locale]}</p>
-            </div>
-            <div className="lg:col-span-5">
-              {e.detail && <p className="text-muted-foreground">{e.detail[locale]}</p>}
-              <Points items={e.points} locale={locale} />
-            </div>
-          </li>
+          <EntryRow key={e.title.en} entry={e} locale={locale} />
         ))}
       </ol>
     </Part>
   );
 }
 
-/** 02 · Engagement : un bloc par rôle, la responsabilité principale en large. */
+/** 02 · Engagement */
 function InvolvementPart({ locale }: { locale: Locale }) {
   return (
     <Part index="02" id="engagement-title" title={ui.involvement[locale]} color="bg-ember">
-      <ul className="grid gap-4 py-7 md:grid-cols-2 lg:grid-cols-4 lg:py-8">
-        {involvement.map((e, i) => (
-          <li key={e.title.en} className={`flex flex-col border border-input bg-background p-5 ${i === 0 ? "md:col-span-2" : ""}`}>
-            <p className="data text-muted-foreground">
-              {e.org[locale]} · {e.period?.[locale]}
-            </p>
-            <h3 className={`display mt-3 ${i === 0 ? "text-[clamp(1.5rem,2.6vw,2.25rem)]" : "text-[clamp(1.375rem,2vw,1.75rem)]"}`}>{e.title[locale]}</h3>
-            <div className="pt-4">
-              {e.detail && <p className="text-sm text-muted-foreground">{e.detail[locale]}</p>}
-              <Points items={e.points} locale={locale} />
-            </div>
-          </li>
+      <ul>
+        {involvement.map((e) => (
+          <EntryRow key={e.title.en} entry={e} locale={locale} />
         ))}
       </ul>
     </Part>
@@ -112,25 +116,24 @@ function DegreePart({ locale }: { locale: Locale }) {
   const { years, current, start } = degreeProgress;
   return (
     <Part index="03" id="diplome-title" title={ui.education[locale]} color="bg-signal">
-      <div className="grid gap-8 py-7 lg:grid-cols-12 lg:py-10">
-        <div className="lg:col-span-7">
-          <h3 className="display text-[clamp(1.75rem,3.2vw,2.75rem)]">{d.title[locale]}</h3>
-          <p className="data mt-3 text-muted-foreground">
-            {d.org[locale]} · {d.period?.[locale]}
-          </p>
+      <div className="grid gap-x-8 gap-y-5 md:grid-cols-[9.5rem_minmax(0,1fr)] xl:grid-cols-[10.5rem_minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <p className="data pt-1.5 text-muted-foreground tabular">{d.period?.[locale]}</p>
+        <div>
+          <h3 className="display text-balance text-[clamp(1.375rem,1.9vw,1.75rem)]">{d.title[locale]}</h3>
+          <p className="data mt-1.5 text-muted-foreground">{d.org[locale]}</p>
         </div>
-        <div className="lg:col-span-5 lg:self-end">
-          <p className="font-medium">
+        <div className="md:col-start-2 xl:col-start-auto">
+          <p>
             {current}
             {locale === "fr" ? "e" : "rd"} {ui.yearOf[locale]} {years} · {ui.current[locale]}
           </p>
           <ol className="mt-3 grid grid-cols-5 gap-1" aria-label={`${ui.schoolYear[locale]} ${current}/${years}`}>
             {Array.from({ length: years }, (_, i) => {
               const n = i + 1;
-              const state = n < current ? "bg-foreground" : n === current ? "border-2 border-foreground bg-signal" : "border-2 border-input";
+              const state = n < current ? "bg-foreground" : n === current ? "border border-foreground bg-signal" : "border border-input";
               return (
                 <li key={n}>
-                  <span aria-hidden className={`block h-3 ${state}`} />
+                  <span aria-hidden className={`block h-2 ${state}`} />
                   <span className="data mt-2 block text-muted-foreground tabular">
                     {start + i}
                     {n === current && <span className="sr-only"> · {ui.current[locale]}</span>}

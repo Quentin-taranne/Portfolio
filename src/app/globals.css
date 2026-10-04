@@ -190,37 +190,20 @@
     transform: scaleX(0);
   }
 }
-@keyframes draw-y {
-  from {
-    transform: scaleY(0);
-  }
-}
-@keyframes pop {
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(1.25rem);
   }
 }
-@keyframes dot {
-  from {
-    transform: scale(0);
-  }
-}
-.frise-line-x {
+/* Frise : les barres se tracent l'une après l'autre, puis la date du jour apparaît. */
+.frise-bar {
   transform-origin: left;
-  animation: draw-x 1.6s var(--ease-out-quart) both;
+  animation: draw-x 900ms var(--ease-out-quart) both;
+  animation-delay: calc(200ms + var(--i) * 90ms);
 }
-.frise-line-y {
-  transform-origin: top;
-  animation: draw-y 1.6s var(--ease-out-quart) both;
-}
-.frise-item {
-  animation: pop 600ms var(--ease-out-quart) both;
-  animation-delay: calc(250ms + var(--i) * 170ms);
-}
-.frise-item .frise-dot {
-  animation: dot 400ms var(--ease-out-quart) both;
-  animation-delay: calc(250ms + var(--i) * 170ms);
+.frise-today {
+  animation: fade-in 500ms ease-out both;
+  animation-delay: 1100ms;
 }
 
 /* ---------- Ouverture « livre » (accueil, une fois par visite) ---------- */
@@ -355,10 +338,8 @@ html[data-intro="skip"] .book-intro {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .frise-line-x,
-  .frise-line-y,
-  .frise-item,
-  .frise-item .frise-dot {
+  .frise-bar,
+  .frise-today {
     animation: none !important;
   }
   html {

@@ -33,6 +33,7 @@ export const experience: Entry[] = [
     period: t("Févr. 2026 – mars 2027", "Feb 2026 – Mar 2027"),
     title: t("Assistant pédagogique", "Teaching assistant"),
     org: t("Epitech Réunion", "Epitech Réunion"),
+    span: { from: "2026-02", to: "2027-03" },
     detail: t("2 jours par semaine · étudiants de 1re et 2e année", "2 days a week · 1st- and 2nd-year students"),
     points: [
       t("Évaluation des étudiants", "Student assessment"),
@@ -47,6 +48,7 @@ export const experience: Entry[] = [
     period: t("Juil. – déc. 2025", "Jul – Dec 2025"),
     title: t("Stage développement & data", "Development & data internship"),
     org: t("EDF SEI Réunion", "EDF SEI Réunion"),
+    span: { from: "2025-07", to: "2025-12" },
     detail: t("Agence APERF (Pilotage et Expertise Réseau Finance) · en binôme", "APERF agency (network steering and finance) · in a pair"),
     points: [
       t(
@@ -64,6 +66,7 @@ export const experience: Entry[] = [
     period: t("Depuis oct. 2026", "Since Oct 2026"),
     title: t("Prestations informatiques", "IT services"),
     org: t("Micro-entreprise", "Sole proprietorship"),
+    span: { from: "2026-10" },
     detail: t("Ouvert à de nouveaux clients", "Open to new clients"),
     points: [
       t("Piano Concerto Festival : site complet en PHP, en ligne", "Piano Concerto Festival: full website in PHP, live"),
@@ -78,6 +81,7 @@ export const involvement: Entry[] = [
     period: t("Depuis nov. 2024", "Since Nov 2024"),
     title: t("Responsable des ateliers de programmation", "Programming workshops lead"),
     org: t("Epitech Académie", "Epitech Académie"),
+    span: { from: "2024-11", step: { at: "2026-03", label: t("Responsable", "Lead") } },
     detail: t("Membre de l'équipe depuis nov. 2024 · responsable depuis mars 2026", "Team member since Nov 2024 · lead since Mar 2026"),
     points: [
       t("Ateliers pour lycéens : bases de la programmation, shell UNIX, variables, boucles, POO", "Workshops for high-school students: programming basics, UNIX shell, variables, loops, OOP"),
@@ -88,12 +92,14 @@ export const involvement: Entry[] = [
     period: t("Depuis mars 2025", "Since Mar 2025"),
     title: t("Trésorier", "Treasurer"),
     org: t("BDE Epitech Réunion", "Epitech Réunion student union"),
+    span: { from: "2025-03" },
     points: [t("Gestion de l'ensemble de la trésorerie", "Manages all of the association's finances")],
   },
   {
     period: t("Depuis nov. 2024", "Since Nov 2024"),
     title: t("Ambassadeur", "Ambassador"),
     org: t("Epitech", "Epitech"),
+    span: { from: "2024-11", step: { at: "2026-03", label: t("Référent", "Lead") } },
     detail: t("Ambassadeur référent depuis mars 2026", "Lead ambassador since Mar 2026"),
     points: [t("Présentation de l'école dans les forums et les lycées", "Presenting the school at education fairs and high schools")],
   },
@@ -102,11 +108,20 @@ export const involvement: Entry[] = [
 /** Avancement du diplôme : 5 années, la 3e en cours. */
 export const degreeProgress = { years: 5, current: 3, start: 2024 };
 
+/** Stage de 3e année, à venir : affiché sur la frise. */
+export const nextInternship: Entry = {
+  period: t("À partir d'avril 2027 · 4 mois", "From April 2027 · 4 months"),
+  title: t("Stage de 3e année", "3rd-year internship"),
+  org: t("À venir", "Upcoming"),
+  span: { from: "2027-04", to: "2027-07" },
+};
+
 export const education: Entry[] = [
   {
     period: t("2024 – 2029", "2024 – 2029"),
     title: t("Expert en technologies de l'information (RNCP niveau 7)", "IT Expert, Master's level (RNCP level 7)"),
     org: t("Epitech", "Epitech"),
+    span: { from: "2024", to: "2029" },
   },
 ];
 
@@ -155,16 +170,4 @@ export const milestones: { year: string; items: T[] }[] = [
   { year: "2027", items: [t("Stage de 3e année · avril", "3rd-year internship · April")] },
 ];
 
-/** Grandes étapes de la frise animée (page Parcours). Uniquement des dates connues. */
-export type TimelineType = "school" | "work" | "competition" | "project";
 
-export const timeline: { when: T; title: T; detail?: T; type: TimelineType; upcoming?: boolean }[] = [
-  { when: t("2024", "2024"), title: t("Entrée à Epitech", "Joined Epitech"), detail: t("Expert en technologies de l'information", "IT Expert programme"), type: "school" },
-  { when: t("Juin 2025", "June 2025"), title: t("Lego × Gemini", "Lego × Gemini"), detail: t("Recréé en 3 jours, sans expérience web", "Rebuilt in 3 days, no prior web experience"), type: "project" },
-  { when: t("Juil.–déc. 2025", "Jul–Dec 2025"), title: t("Stage EDF SEI Réunion", "EDF SEI Réunion internship"), detail: t("Cyclone, automatisation 2 h → 3 min", "Cyclone app, 2 h → 3 min automation"), type: "work" },
-  { when: t("Févr. 2026", "Feb 2026"), title: t("Assistant pédagogique", "Teaching assistant"), detail: t("Epitech Réunion, 2 jours par semaine", "Epitech Réunion, 2 days a week"), type: "work" },
-  { when: t("Juin 2026", "June 2026"), title: t("Zappy · 1er régional", "Zappy · 1st regional"), detail: t("IA des joueurs, niveau 8 atteint", "Player AI, reaches level 8"), type: "competition" },
-  { when: t("Été 2026", "Summer 2026"), title: t("Robocar · 3e place", "Robocar · 3rd place"), detail: t("Compétition à Epitech Paris", "Competition at Epitech Paris"), type: "competition" },
-  { when: t("Sept. 2026", "Sept 2026"), title: t("CartePro", "CartePro"), detail: t("MVP livré en 2 semaines, équipe de 4", "MVP shipped in 2 weeks, team of 4"), type: "project" },
-  { when: t("Avril 2027", "April 2027"), title: t("Stage de 3e année", "3rd-year internship"), detail: t("4 mois", "4 months"), type: "work", upcoming: true },
-];
