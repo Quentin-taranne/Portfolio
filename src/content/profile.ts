@@ -30,42 +30,72 @@ export const status: { label: T; value: T }[] = [
 
 export const experience: Entry[] = [
   {
-    period: t("2026 – 2027", "2026 – 2027"),
+    period: t("Févr. 2026 – mars 2027", "Feb 2026 – Mar 2027"),
     title: t("Assistant pédagogique", "Teaching assistant"),
     org: t("Epitech Réunion", "Epitech Réunion"),
-    detail: t(
-      "Accompagnement et évaluation des étudiants de 1re et 2e année · 2 jours par semaine",
-      "Coaching and assessing 1st- and 2nd-year students · 2 days a week",
-    ),
+    detail: t("2 jours par semaine · étudiants de 1re et 2e année", "2 days a week · 1st- and 2nd-year students"),
+    points: [
+      t("Évaluation des étudiants", "Student assessment"),
+      t("Mise en place et animation d'ateliers", "Setting up and running workshops"),
+      t(
+        "Conseil et explications : développement bas niveau, développement web, programmation orientée objet",
+        "Advice and explanations: low-level development, web development, object-oriented programming",
+      ),
+    ],
   },
   {
-    period: t("2025", "2025"),
+    period: t("Juil. – déc. 2025", "Jul – Dec 2025"),
     title: t("Stage développement & data", "Development & data internship"),
     org: t("EDF SEI Réunion", "EDF SEI Réunion"),
-    detail: t(
-      "Juillet–décembre · agence APERF · application Cyclone, automatisations VBA, Power BI, analyse Python",
-      "July–December · APERF agency · Cyclone app, VBA automation, Power BI, Python analysis",
-    ),
+    detail: t("Agence APERF (Pilotage et Expertise Réseau Finance) · en binôme", "APERF agency (network steering and finance) · in a pair"),
+    points: [
+      t(
+        "Application Cyclone, affectation des équipes de dépannage après un cyclone : back-end et import / export des données ; utilisée par l'agence APERF de Saint-Leu, testée en exercice de crise",
+        "Cyclone app, dispatching repair crews after a cyclone: back end and data import / export; used by the APERF agency in Saint-Leu, tested in crisis drills",
+      ),
+      t("Automatisations VBA : traitement manuel réduit de 2 h à 3 min", "VBA automation: manual processing cut from 2 h to 3 min"),
+      t(
+        "Tableau de bord Power BI des campagnes d'élagage · analyse des défaillances réseau en Python",
+        "Power BI dashboard for vegetation-management campaigns · grid failure analysis in Python",
+      ),
+    ],
   },
   {
-    period: t("En cours", "Ongoing"),
+    period: t("Depuis oct. 2026", "Since Oct 2026"),
     title: t("Prestations informatiques", "IT services"),
     org: t("Micro-entreprise", "Sole proprietorship"),
-    detail: t("Client : Piano Concerto Festival", "Client: Piano Concerto Festival"),
+    detail: t("Ouvert à de nouveaux clients", "Open to new clients"),
+    points: [
+      t("Piano Concerto Festival : site complet en PHP, en ligne", "Piano Concerto Festival: full website in PHP, live"),
+      t("Autres projets en cours de réalisation", "Other projects in progress"),
+      t("Sites et applications web, outils data, automatisation", "Websites and web apps, data tools, automation"),
+    ],
   },
 ];
 
 export const involvement: Entry[] = [
   {
+    period: t("Depuis nov. 2024", "Since Nov 2024"),
     title: t("Responsable des ateliers de programmation", "Programming workshops lead"),
     org: t("Epitech Académie", "Epitech Académie"),
-    detail: t("2 ateliers par mois · 10 à 30 étudiants", "2 workshops a month · 10 to 30 students"),
+    detail: t("Membre de l'équipe depuis nov. 2024 · responsable depuis mars 2026", "Team member since Nov 2024 · lead since Mar 2026"),
+    points: [
+      t("Ateliers pour lycéens : bases de la programmation, shell UNIX, variables, boucles, POO", "Workshops for high-school students: programming basics, UNIX shell, variables, loops, OOP"),
+      t("2 ateliers par mois · 10 à 30 participants", "2 workshops a month · 10 to 30 participants"),
+    ],
   },
-  { title: t("Trésorier", "Treasurer"), org: t("BDE Epitech Réunion", "Epitech Réunion student union") },
   {
+    period: t("Depuis mars 2025", "Since Mar 2025"),
+    title: t("Trésorier", "Treasurer"),
+    org: t("BDE Epitech Réunion", "Epitech Réunion student union"),
+    points: [t("Gestion de l'ensemble de la trésorerie", "Manages all of the association's finances")],
+  },
+  {
+    period: t("Depuis nov. 2024", "Since Nov 2024"),
     title: t("Ambassadeur", "Ambassador"),
     org: t("Epitech", "Epitech"),
-    detail: t("Forums et lycées", "Education fairs and high schools"),
+    detail: t("Ambassadeur référent depuis mars 2026", "Lead ambassador since Mar 2026"),
+    points: [t("Présentation de l'école dans les forums et les lycées", "Presenting the school at education fairs and high schools")],
   },
 ];
 
@@ -100,17 +130,26 @@ export const extras: { label: T; value: T }[] = [
 
 /** Repères du parcours : uniquement des dates connues. */
 export const milestones: { year: string; items: T[] }[] = [
-  { year: "2024", items: [t("Entrée à Epitech", "Joined Epitech")] },
+  {
+    year: "2024",
+    items: [t("Entrée à Epitech", "Joined Epitech"), t("Ateliers Epitech Académie et ambassadeur · nov.", "Epitech Académie workshops and ambassador · Nov")],
+  },
   {
     year: "2025",
-    items: [t("Lego × Gemini, en 3 jours", "Lego × Gemini, in 3 days"), t("Stage EDF SEI Réunion · juil.–déc.", "EDF SEI Réunion internship · Jul–Dec")],
+    items: [
+      t("Trésorier du BDE · mars", "Student union treasurer · Mar"),
+      t("Lego × Gemini, en 3 jours", "Lego × Gemini, in 3 days"),
+      t("Stage EDF SEI Réunion · juil.–déc.", "EDF SEI Réunion internship · Jul–Dec"),
+    ],
   },
   {
     year: "2026",
     items: [
-      t("Assistant pédagogique · dès février", "Teaching assistant · from February"),
+      t("Assistant pédagogique · février", "Teaching assistant · February"),
+      t("Responsable des ateliers · mars", "Workshops lead · March"),
       t("Zappy · 1er régional", "Zappy · 1st regional"),
       t("CartePro · septembre", "CartePro · September"),
+      t("Micro-entreprise · octobre", "Sole proprietorship · October"),
     ],
   },
   { year: "2027", items: [t("Stage de 3e année · avril", "3rd-year internship · April")] },

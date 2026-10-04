@@ -60,6 +60,17 @@ export const projects: Project[] = [
         ),
       },
       {
+        label: ROLE,
+        value: t("Back-end, import / export des données", "Back end, data import / export"),
+      },
+      {
+        label: t("Usage", "Usage"),
+        value: t(
+          "Utilisée par l'agence APERF de Saint-Leu · testée en exercice de crise",
+          "Used by the APERF agency in Saint-Leu · tested in crisis drills",
+        ),
+      },
+      {
         label: t("Fonctions", "Features"),
         value: t(
           "Vue partagée poste de commande ↔ agences · affectation automatique selon le type d'équipe et les préférences · import/export Excel",

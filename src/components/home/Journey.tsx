@@ -1,5 +1,5 @@
 import { degreeProgress, education, experience, involvement, milestones } from "@/content/profile";
-import type { Locale } from "@/content/types";
+import type { Entry, Locale } from "@/content/types";
 import { ui } from "@/content/ui";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
@@ -31,6 +31,21 @@ export function MilestoneRuler({ locale }: { locale: Locale }) {
   );
 }
 
+/** Puces d'information (expérience, engagement). */
+function Points({ items, locale }: { items?: Entry["points"]; locale: Locale }) {
+  if (!items?.length) return null;
+  return (
+    <ul className="mt-3 space-y-1.5">
+      {items.map((p) => (
+        <li key={p.en} className="flex gap-2.5">
+          <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-foreground" />
+          {p[locale]}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** Partie du parcours : panneau encadré, bandeau de titre coloré (le titre porte l'information). */
 function Part({ index, id, title, color, children }: { index: string; id: string; title: string; color: string; children: React.ReactNode }) {
   return (
@@ -58,7 +73,10 @@ function ExperiencePart({ locale }: { locale: Locale }) {
               <h3 className="text-xl font-medium">{e.title[locale]}</h3>
               <p className="data mt-1.5 text-muted-foreground">{e.org[locale]}</p>
             </div>
-            {e.detail && <p className="text-muted-foreground lg:col-span-5">{e.detail[locale]}</p>}
+            <div className="lg:col-span-5">
+              {e.detail && <p className="text-muted-foreground">{e.detail[locale]}</p>}
+              <Points items={e.points} locale={locale} />
+            </div>
           </li>
         ))}
       </ol>
@@ -73,9 +91,14 @@ function InvolvementPart({ locale }: { locale: Locale }) {
       <ul className="grid gap-4 py-7 md:grid-cols-2 lg:grid-cols-4 lg:py-8">
         {involvement.map((e, i) => (
           <li key={e.title.en} className={`flex flex-col border border-input bg-background p-5 ${i === 0 ? "md:col-span-2" : ""}`}>
-            <p className="data text-muted-foreground">{e.org[locale]}</p>
+            <p className="data text-muted-foreground">
+              {e.org[locale]} · {e.period?.[locale]}
+            </p>
             <h3 className={`display mt-3 ${i === 0 ? "text-[clamp(1.5rem,2.6vw,2.25rem)]" : "text-[clamp(1.375rem,2vw,1.75rem)]"}`}>{e.title[locale]}</h3>
-            {e.detail && <p className="mt-auto pt-6 text-muted-foreground">{e.detail[locale]}</p>}
+            <div className="pt-4">
+              {e.detail && <p className="text-sm text-muted-foreground">{e.detail[locale]}</p>}
+              <Points items={e.points} locale={locale} />
+            </div>
           </li>
         ))}
       </ul>

@@ -37,5 +37,8 @@ export type Entry = {
   period?: T;
   title: T;
   org: T;
+  /** Une ligne de contexte (rythme, lieu, cadre). */
   detail?: T;
+  /** Points détaillés, affichés sur la page Parcours et le CV. */
+  points?: T[];
 };

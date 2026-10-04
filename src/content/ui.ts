@@ -39,8 +39,11 @@ export const ui = {
   viewCv: t("Voir le CV", "View résumé"),
   cvPreviewAlt: t("Aperçu de la page du CV", "Preview of the résumé page"),
   cvFormat: t("1 page · A4 · FR / EN", "1 page · A4 · FR / EN"),
-  selectedProjects: t("Projets sélectionnés", "Selected projects"),
-  otherProjects: t("Autres projets", "Other projects"),
+  cvProjectsNote: t(
+    "Fiches détaillées, captures et vidéos de chaque projet sur le portfolio.",
+    "Details, screenshots and videos of each project on the portfolio.",
+  ),
+  qrAlt: t("QR code vers la page des projets", "QR code to the projects page"),
   results: t("Résultats", "Results"),
   languages: t("Langues", "Languages"),
   website: t("Site", "Website"),

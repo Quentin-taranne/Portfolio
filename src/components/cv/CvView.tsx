@@ -1,12 +1,13 @@
 import { Download } from "lucide-react";
 import Image from "next/image";
+import QRCode from "qrcode";
 import type { ReactNode } from "react";
 import { PrintButton } from "@/components/cv/PrintButton";
 import { Button } from "@/components/ui/button";
 import { Shell } from "@/components/site/Shell";
 import { degreeProgress, education, experience, extras, involvement, profile, skills, status } from "@/content/profile";
-import { minorProjects, projects } from "@/content/projects";
-import type { Locale } from "@/content/types";
+import { projects } from "@/content/projects";
+import type { Entry, Locale } from "@/content/types";
 import { ui } from "@/content/ui";
 import { otherLocale, routes } from "@/lib/routes";
 import { pageMetadata, siteUrl } from "@/lib/seo";
@@ -34,14 +35,46 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
+/** Contexte et puces d'une entrée (expérience, engagement). */
+function Points({ entry, locale }: { entry: Entry; locale: Locale }) {
+  return (
+    <>
+      {entry.detail && <p className="text-muted-foreground">{entry.detail[locale]}</p>}
+      {entry.points && (
+        <ul className="mt-0.5 space-y-px print:mt-0 print:space-y-0">
+          {entry.points.map((p) => (
+            <li key={p.en} className="flex gap-2">
+              <span aria-hidden className="mt-[0.55em] size-1 shrink-0 bg-foreground" />
+              {p[locale]}
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+
+/** Ligne d'en-tête d'une entrée : titre · organisation, période à droite. */
+function EntryHead({ entry, locale }: { entry: Entry; locale: Locale }) {
+  return (
+    <p className="flex flex-wrap justify-between gap-x-3">
+      <span>
+        <span className="font-medium">{entry.title[locale]}</span> · {entry.org[locale]}
+      </span>
+      <span className="data text-muted-foreground tabular">{entry.period?.[locale]}</span>
+    </p>
+  );
+}
+
 /**
  * CV généré à partir des données du site (src/content).
  * À l'écran : une feuille A4 ; à l'impression : la feuille seule, en thème clair, sur une page.
  */
-export function CvView({ locale }: { locale: Locale }) {
-  // Projets sélectionnés : les principaux et ceux classés en compétition.
-  const selected = projects.filter((p) => p.featured || p.rank);
-  const others = [...projects.filter((p) => !p.featured && !p.rank).map((p) => p.name), ...minorProjects.map((m) => m.name)];
+export async function CvView({ locale }: { locale: Locale }) {
+  // Les projets sont sur le portfolio : le CV en donne l'adresse et un QR code.
+  const projectsUrl = `${siteUrl}${routes.projects(locale)}`;
+  const qr = await QRCode.toString(projectsUrl, { type: "svg", margin: 0, errorCorrectionLevel: "M", color: { dark: "#000000", light: "#ffffff" } });
+  const main = projects.filter((p) => p.featured).map((p) => p.name);
   const ranked = projects.filter((p) => p.rank).sort((a, b) => a.rank! - b.rank!);
   const degree = education[0];
 
@@ -59,7 +92,7 @@ export function CvView({ locale }: { locale: Locale }) {
         </div>
 
         {/* La feuille : 210 mm de large, texte compact pour tenir sur une page A4. */}
-        <article className="cv-sheet mx-auto max-w-[210mm] border bg-card p-6 text-[0.8125rem] leading-snug sm:p-[12mm] print:max-w-none print:text-[9.5pt] print:leading-[1.32] print:border-0 print:bg-transparent print:p-0">
+        <article className="cv-sheet mx-auto max-w-[210mm] border bg-card p-6 text-[0.8125rem] leading-snug sm:p-[12mm] print:max-w-none print:text-[9.5pt] print:leading-[1.27] print:border-0 print:bg-transparent print:p-0">
           <header className="grid gap-4 border-b-2 border-foreground pb-4 sm:grid-cols-[auto_1fr_auto] sm:gap-6 print:pb-2.5">
             <Image
               src={profile.photo.src}
@@ -122,49 +155,44 @@ export function CvView({ locale }: { locale: Locale }) {
                 <ul className="space-y-3 print:space-y-1.5">
                   {experience.map((e) => (
                     <li key={e.title.en} className="break-inside-avoid">
-                      <p className="flex flex-wrap justify-between gap-x-3">
-                        <span>
-                          <span className="font-medium">{e.title[locale]}</span> · {e.org[locale]}
-                        </span>
-                        <span className="data text-muted-foreground tabular">{e.period?.[locale]}</span>
-                      </p>
-                      {e.detail && <p className="text-muted-foreground">{e.detail[locale]}</p>}
+                      <EntryHead entry={e} locale={locale} />
+                      <Points entry={e} locale={locale} />
                     </li>
                   ))}
                 </ul>
-              </Block>
-
-              <Block title={ui.selectedProjects[locale]}>
-                <ul className="space-y-2.5 print:space-y-1">
-                  {selected.map((p) => (
-                    <li key={p.slug} className="break-inside-avoid">
-                      <p className="flex flex-wrap justify-between gap-x-3">
-                        <span>
-                          <span className="font-medium">{p.name}</span> · {p.line[locale]}
-                        </span>
-                        {p.result && <span className="font-medium">{p.result[locale]}</span>}
-                      </p>
-                      <p className="data text-muted-foreground">
-                        {p.kind[locale]} · {p.stack.join(", ")}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-2.5 text-muted-foreground print:mt-1.5">
-                  <span className="font-medium text-foreground">{ui.otherProjects[locale]}</span> · {others.join(", ")}
-                </p>
               </Block>
 
               <Block title={ui.involvement[locale]}>
-                <ul className="space-y-1.5">
+                <ul className="space-y-3 print:space-y-1.5">
                   {involvement.map((e) => (
-                    <li key={e.title.en}>
-                      <span className="font-medium">{e.title[locale]}</span> · {e.org[locale]}
-                      {e.detail && <span className="text-muted-foreground"> · {e.detail[locale]}</span>}
+                    <li key={e.title.en} className="break-inside-avoid">
+                      <EntryHead entry={e} locale={locale} />
+                      <Points entry={e} locale={locale} />
                     </li>
                   ))}
                 </ul>
               </Block>
+
+              <Block title={ui.projects[locale]}>
+                <div className="flex items-center gap-4">
+                  <div
+                    role="img"
+                    aria-label={ui.qrAlt[locale]}
+                    className="size-20 shrink-0 bg-white p-1 print:size-[19mm] [&_svg]:size-full"
+                    dangerouslySetInnerHTML={{ __html: qr }}
+                  />
+                  <div>
+                    <p>{ui.cvProjectsNote[locale]}</p>
+                    <p>
+                      <a href={projectsUrl} className="inline-flex min-h-6 items-center font-medium underline underline-offset-2 print:min-h-0">
+                        {short(projectsUrl)}
+                      </a>
+                    </p>
+                    <p className="text-muted-foreground">{main.join(", ")}</p>
+                  </div>
+                </div>
+              </Block>
+
             </div>
 
             <aside className="space-y-5 print:space-y-4">
