@@ -25,12 +25,20 @@ const pdfFile = { fr: "CV-Quentin-Taranne-Payet-FR.pdf", en: "CV-Quentin-Taranne
 
 const short = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
+/**
+ * États mis en étiquette, en noir : chaque couleur n'apparaît qu'une fois sur la page (repères de rubrique),
+ * pour qu'aucune information ne semble liée à une autre par sa couleur.
+ */
+const LABELED = new Set(["Freelance", "Internship"]);
 
 /** Rubrique du CV : titre mono souligné d'un filet, puis contenu. */
-function Block({ title, children }: { title: string; children: ReactNode }) {
+function Block({ title, color, children }: { title: string; color?: string; children: ReactNode }) {
   return (
     <section className="break-inside-avoid">
-      <h2 className="data border-b-2 border-foreground pb-1 font-medium text-foreground">
+      <h2 className="data flex items-center gap-2 border-b-2 border-foreground pb-1 font-medium text-foreground">
+        {/* Repère de couleur, mêmes codes que la page Parcours ; le titre porte l'information. */}
+        {/* Sans couleur : carré vide, pour que tous les titres restent alignés. */}
+        <span aria-hidden className={`size-2.5 shrink-0 border ${color ? `border-signal-ink ${color}` : "border-foreground"}`} />
         {title}
       </h2>
       <div className="mt-2.5 print:mt-1.5">{children}</div>
@@ -96,11 +104,7 @@ export async function CvView({ locale }: { locale: Locale }) {
 
         {/* La feuille : 210 mm de large, texte compact pour tenir sur une page A4. */}
         <article className="cv-sheet [print-color-adjust:exact] mx-auto max-w-[210mm] border bg-card p-6 text-[0.8125rem] leading-snug sm:p-[12mm] print:max-w-none print:text-[9.5pt] print:leading-[1.27] print:border-0 print:bg-transparent print:p-0">
-          {/*
-           * Seule couleur du CV : le bandeau d'en-tête, comme la bande du nom sur la couverture du livre.
-           * Elle ne code aucune information ; le texte y est toujours à l'encre fixe (contraste ≥ 9,7:1).
-           */}
-          <header className="grid gap-4 border-2 border-signal-ink bg-signal p-4 text-signal-ink [--foreground:var(--signal-ink)] [--muted-foreground:var(--signal-ink)] [--ring:var(--signal-ink)] sm:grid-cols-[auto_1fr_auto] sm:gap-6 print:p-[3.5mm]">
+          <header className="grid gap-4 border-b-2 border-foreground pb-4 sm:grid-cols-[auto_1fr_auto] sm:gap-6 print:pb-2.5">
             <Image
               src={profile.photo.src}
               alt={profile.photo.alt[locale]}
@@ -108,7 +112,7 @@ export async function CvView({ locale }: { locale: Locale }) {
               height={profile.photo.height}
               sizes="7rem"
               loading="eager"
-              className="size-28 border border-signal-ink object-cover print:size-[27mm]"
+              className="size-28 border object-cover print:size-[27mm]"
             />
             <div>
               <h1 className="display text-[2.25rem] print:text-[1.75rem]">
@@ -119,7 +123,14 @@ export async function CvView({ locale }: { locale: Locale }) {
               <ul className="mt-2 space-y-0.5 text-muted-foreground">
                 {status.map((s) => (
                   <li key={s.label.en}>
-                    <span className="font-medium text-foreground">{s.label[locale]}</span> · {s.value[locale]}
+                    {LABELED.has(s.label.en) ? (
+                      <span className="data mr-1 inline-block border border-foreground bg-foreground px-1.5 leading-normal text-background">
+                        {s.label[locale]}
+                      </span>
+                    ) : (
+                      <span className="font-medium text-foreground">{s.label[locale]} · </span>
+                    )}
+                    {s.value[locale]}
                   </li>
                 ))}
               </ul>
@@ -158,7 +169,7 @@ export async function CvView({ locale }: { locale: Locale }) {
 
           <div className="mt-5 grid gap-6 sm:grid-cols-[1fr_15rem] sm:gap-8 print:mt-3 print:grid-cols-[1fr_56mm] print:gap-6">
             <div className="space-y-5 print:space-y-4">
-              <Block title={ui.experience[locale]}>
+              <Block title={ui.experience[locale]} color="bg-sky">
                 <ul className="space-y-3 print:space-y-1.5">
                   {experience.map((e) => (
                     <li key={e.title.en} className="break-inside-avoid">
@@ -169,7 +180,7 @@ export async function CvView({ locale }: { locale: Locale }) {
                 </ul>
               </Block>
 
-              <Block title={ui.involvement[locale]}>
+              <Block title={ui.involvement[locale]} color="bg-ember">
                 <ul className="space-y-3 print:space-y-1.5">
                   {involvement.map((e) => (
                     <li key={e.title.en} className="break-inside-avoid">
@@ -217,7 +228,7 @@ export async function CvView({ locale }: { locale: Locale }) {
                 </ul>
               </Block>
 
-              <Block title={ui.education[locale]}>
+              <Block title={ui.education[locale]} color="bg-signal">
                 <p className="font-medium">{degree.title[locale]}</p>
                 <p className="text-muted-foreground">
                   {degree.org[locale]} · {degree.period?.[locale]}
