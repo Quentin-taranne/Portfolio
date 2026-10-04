@@ -25,17 +25,16 @@ const pdfFile = { fr: "CV-Quentin-Taranne-Payet-FR.pdf", en: "CV-Quentin-Taranne
 
 const short = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
-/** Couleur des étiquettes d'état, comme les badges de l'accueil (Freelance jaune, Stage bleu). */
-const STATUS_COLOR: Record<string, string> = { Freelance: "bg-signal", Internship: "bg-sky" };
+/** États mis en étiquette (même couleur d'accent : ce sont deux disponibilités). */
+const LABELED = new Set(["Freelance", "Internship"]);
 
 /** Rubrique du CV : titre mono souligné d'un filet, puis contenu. */
-function Block({ title, color, children }: { title: string; color?: string; children: ReactNode }) {
+function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="break-inside-avoid">
       <h2 className="data flex items-center gap-2 border-b-2 border-foreground pb-1 font-medium text-foreground">
-        {/* Repère de couleur, mêmes codes que la page Parcours ; le titre porte l'information. */}
-        {/* Sans couleur : carré vide, pour que tous les titres restent alignés. */}
-        <span aria-hidden className={`size-2.5 shrink-0 border ${color ? `border-signal-ink ${color}` : "border-foreground"}`} />
+        {/* Une seule couleur d'accent, identique partout : décorative, elle ne code aucune information. */}
+        <span aria-hidden className="size-2.5 shrink-0 border border-signal-ink bg-signal" />
         {title}
       </h2>
       <div className="mt-2.5 print:mt-1.5">{children}</div>
@@ -120,8 +119,8 @@ export async function CvView({ locale }: { locale: Locale }) {
               <ul className="mt-2 space-y-0.5 text-muted-foreground">
                 {status.map((s) => (
                   <li key={s.label.en}>
-                    {STATUS_COLOR[s.label.en] ? (
-                      <span className={`data mr-1 inline-block border border-signal-ink px-1.5 leading-normal text-signal-ink ${STATUS_COLOR[s.label.en]}`}>
+                    {LABELED.has(s.label.en) ? (
+                      <span className="data mr-1 inline-block border border-signal-ink bg-signal px-1.5 leading-normal text-signal-ink">
                         {s.label[locale]}
                       </span>
                     ) : (
@@ -166,7 +165,7 @@ export async function CvView({ locale }: { locale: Locale }) {
 
           <div className="mt-5 grid gap-6 sm:grid-cols-[1fr_15rem] sm:gap-8 print:mt-3 print:grid-cols-[1fr_56mm] print:gap-6">
             <div className="space-y-5 print:space-y-4">
-              <Block title={ui.experience[locale]} color="bg-sky">
+              <Block title={ui.experience[locale]}>
                 <ul className="space-y-3 print:space-y-1.5">
                   {experience.map((e) => (
                     <li key={e.title.en} className="break-inside-avoid">
@@ -177,7 +176,7 @@ export async function CvView({ locale }: { locale: Locale }) {
                 </ul>
               </Block>
 
-              <Block title={ui.involvement[locale]} color="bg-ember">
+              <Block title={ui.involvement[locale]}>
                 <ul className="space-y-3 print:space-y-1.5">
                   {involvement.map((e) => (
                     <li key={e.title.en} className="break-inside-avoid">
@@ -225,7 +224,7 @@ export async function CvView({ locale }: { locale: Locale }) {
                 </ul>
               </Block>
 
-              <Block title={ui.education[locale]} color="bg-signal">
+              <Block title={ui.education[locale]}>
                 <p className="font-medium">{degree.title[locale]}</p>
                 <p className="text-muted-foreground">
                   {degree.org[locale]} · {degree.period?.[locale]}
