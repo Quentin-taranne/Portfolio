@@ -4,6 +4,7 @@ import { profile } from "@/content/profile";
 import type { Locale } from "@/content/types";
 import { ui } from "@/content/ui";
 import { otherLocale, routes } from "@/lib/routes";
+import { ThemeToggle } from "./ThemeToggle";
 
 type Props = {
   locale: Locale;
@@ -59,15 +60,12 @@ export function Shell({ locale, alternateHref, children }: Props) {
               </li>
             </ul>
           </nav>
-          <Link
-            href={alternateHref}
-            hrefLang={other}
-            lang={other}
-            className={`${navLink} col-start-2 row-start-1 justify-self-end`}
-            aria-label={ui.switchToLabel[locale]}
-          >
-            {other.toUpperCase()}
-          </Link>
+          <div className="col-start-2 row-start-1 flex items-center justify-self-end sm:gap-2">
+            <Link href={alternateHref} hrefLang={other} lang={other} className={navLink} aria-label={ui.switchToLabel[locale]}>
+              {other.toUpperCase()}
+            </Link>
+            <ThemeToggle label={ui.darkTheme[locale]} />
+          </div>
         </div>
       </header>
 

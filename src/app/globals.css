@@ -2,8 +2,11 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Le thème sombre suit le réglage du système. */
-@custom-variant dark (@media (prefers-color-scheme: dark));
+/*
+ * Thème clair par défaut, même si le navigateur est réglé en sombre.
+ * Le thème sombre n'est appliqué que sur choix du visiteur (bouton de l'en-tête → data-theme="dark").
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /*
  * Design system « Classement » : un tableau de résultats.
@@ -43,20 +46,20 @@
   --input: oklch(0.45 0.008 95);
   --ring: var(--ink);
   --radius: 0rem;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: oklch(0.16 0.004 95);
-    --ink: oklch(0.95 0.005 95);
-    --card: oklch(0.2 0.004 95);
-    --secondary: oklch(0.24 0.004 95);
-    --muted: oklch(0.24 0.004 95);
-    --muted-foreground: oklch(0.74 0.006 95);
-    --border: oklch(0.33 0.004 95);
-    --input: oklch(0.74 0.006 95);
-    --destructive: oklch(0.7 0.18 27);
-  }
+:root[data-theme="dark"] {
+  --paper: oklch(0.16 0.004 95);
+  --ink: oklch(0.95 0.005 95);
+  --card: oklch(0.2 0.004 95);
+  --secondary: oklch(0.24 0.004 95);
+  --muted: oklch(0.24 0.004 95);
+  --muted-foreground: oklch(0.74 0.006 95);
+  --border: oklch(0.33 0.004 95);
+  --input: oklch(0.74 0.006 95);
+  --destructive: oklch(0.7 0.18 27);
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -328,13 +331,18 @@ html[data-intro="skip"] .book-intro {
   margin: 12mm;
 }
 @media print {
-  :root {
+  /* Toujours clair à l'impression, même si le visiteur a choisi le thème sombre. */
+  :root,
+  :root[data-theme="dark"] {
     --paper: oklch(1 0 0);
     --ink: oklch(0.18 0.005 95);
     --card: oklch(1 0 0);
+    --secondary: oklch(0.915 0.006 95);
+    --muted: oklch(0.915 0.006 95);
     --muted-foreground: oklch(0.4 0.008 95);
     --border: oklch(0.8 0.008 95);
     --input: oklch(0.45 0.008 95);
+    color-scheme: light;
   }
   body {
     background: white;

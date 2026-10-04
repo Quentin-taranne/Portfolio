@@ -12,6 +12,7 @@ export const ui = {
   contact: t("Contact", "Contact"),
   switchTo: t("English", "Français"),
   switchToLabel: t("Read in English", "Lire en français"),
+  darkTheme: t("Thème sombre", "Dark theme"),
 
   podium: t("Podium", "Podium"),
   podiumHint: t("Classements obtenus en compétition", "Competition rankings"),
