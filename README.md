@@ -35,7 +35,7 @@ Tout le texte est dans `src/content/`, chaque chaîne en `{ fr, en }`.
 
 ## Domaine
 
-URL du site, pour les canoniques, Open Graph et le sitemap : `NEXT_PUBLIC_SITE_URL` si définie, sinon le domaine de production fourni par Vercel (`VERCEL_PROJECT_PRODUCTION_URL`).
+Production : **https://www.quentin-taranne.dev** (`quentin-taranne.dev` redirige vers `www`). Cette adresse est définie dans `src/lib/seo.ts` (`PRODUCTION_URL`) et sert aux canoniques, hreflang, Open Graph, sitemap et au CV. `NEXT_PUBLIC_SITE_URL` permet de la remplacer ponctuellement.
 
 ## Design system
 

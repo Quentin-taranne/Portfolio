@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/content/types";
 
+/** Domaine de production (celui que Vercel sert ; quentin-taranne.dev redirige vers www). */
+export const PRODUCTION_URL = "https://www.quentin-taranne.dev";
+
 /**
- * URL publique du site : NEXT_PUBLIC_SITE_URL si définie, sinon le domaine de production
- * fourni par Vercel (sans protocole), sinon localhost en développement.
+ * URL publique du site, utilisée pour les canoniques, hreflang, Open Graph, sitemap et le CV.
+ * NEXT_PUBLIC_SITE_URL permet de la remplacer ; sinon, toujours le domaine de production,
+ * y compris sur les aperçus Vercel (qui ne doivent pas devenir canoniques).
  */
-export const siteUrl = (() => {
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  return "http://localhost:3000";
-})();
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || PRODUCTION_URL).replace(/\/$/, "");
 
 type PageMeta = {
   locale: Locale;
