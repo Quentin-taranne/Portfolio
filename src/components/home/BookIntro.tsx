@@ -6,9 +6,9 @@ const KEY = "qtp-intro";
 
 /**
  * Script exécuté avant le premier affichage : active l'ouverture une seule fois par visite,
- * jamais avec « réduire les animations ». Sans JS, rien ne s'affiche.
+ * jamais avec « réduire les animations », jamais sur téléphone (< 768 px). Sans JS, rien ne s'affiche.
  */
-export const introScript = `try{if(!sessionStorage.getItem("${KEY}")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.dataset.intro="1"}sessionStorage.setItem("${KEY}","1")}catch(e){}`;
+export const introScript = `try{if(!sessionStorage.getItem("${KEY}")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&matchMedia("(min-width: 768px)").matches){document.documentElement.dataset.intro="1"}sessionStorage.setItem("${KEY}","1")}catch(e){}`;
 
 const subtitle = { fr: "Développeur · Epitech", en: "Developer · Epitech" };
 

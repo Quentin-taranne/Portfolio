@@ -13,14 +13,18 @@ export function BookIntroController() {
       events.forEach((e) => window.removeEventListener(e, skip));
       cover?.removeEventListener("animationend", end);
     };
+    // Fin de la rotation : la couverture disparaît, mais la page et le podium finissent leur arrivée.
     const end = () => {
-      delete html.dataset.intro;
+      html.dataset.intro = "done";
       remove();
     };
     const skip = () => {
       if (html.dataset.intro === "skip") return;
       html.dataset.intro = "skip";
-      setTimeout(end, 200);
+      setTimeout(() => {
+        delete html.dataset.intro;
+        remove();
+      }, 200);
     };
     events.forEach((e) => window.addEventListener(e, skip, { passive: true }));
     cover?.addEventListener("animationend", end);

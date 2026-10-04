@@ -15,18 +15,21 @@ export function HomeView({ locale }: { locale: Locale }) {
       {/* Avant tout le reste : décide de l'ouverture « livre » avant le premier affichage. */}
       <script dangerouslySetInnerHTML={{ __html: introScript }} />
       <BookIntro locale={locale} />
-      <Shell locale={locale} alternateHref={routes.home(otherLocale(locale))}>
-        <script
-          type="application/ld+json"
-          // JSON-LD sérialisé par nous, sans entrée utilisateur ; « < » échappé par précaution.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)).replace(/</g, "\\u003c") }}
-        />
-        <Hero locale={locale} />
-        <ProjectIndex locale={locale} />
-        <Journey locale={locale} />
-        <Stack locale={locale} />
-        <Contact locale={locale} />
-      </Shell>
+      {/* Conteneur animé à l'arrivée de la page, seulement pendant l'ouverture « livre ». */}
+      <div className="page-arrive">
+        <Shell locale={locale} alternateHref={routes.home(otherLocale(locale))}>
+          <script
+            type="application/ld+json"
+            // JSON-LD sérialisé par nous, sans entrée utilisateur ; « < » échappé par précaution.
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)).replace(/</g, "\\u003c") }}
+          />
+          <Hero locale={locale} />
+          <ProjectIndex locale={locale} />
+          <Journey locale={locale} />
+          <Stack locale={locale} />
+          <Contact locale={locale} />
+        </Shell>
+      </div>
     </>
   );
 }

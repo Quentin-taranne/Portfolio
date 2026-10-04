@@ -225,16 +225,21 @@
 .book-intro {
   display: none;
 }
-html[data-intro] .book-intro {
+/* « 1 » : ouverture en cours ; « skip » : interrompue ; « done » : couverture partie, la page finit d'arriver. */
+html[data-intro="1"] .book-intro,
+html[data-intro="skip"] .book-intro {
   display: block;
 }
 .book-intro {
   perspective: 2200px;
+  /* Réglages de l'ouverture : temps fermé, durée d'ouverture, arrivée de la page. */
+  --book-hold: 900ms;
+  --book-open: 1300ms;
 }
 .book-cover {
   transform-origin: left center;
   transform-style: preserve-3d;
-  animation: book-open 950ms cubic-bezier(0.6, 0, 0.3, 1) 550ms both;
+  animation: book-open var(--book-open) cubic-bezier(0.55, 0, 0.25, 1) var(--book-hold) both;
 }
 .book-face,
 .book-back {
@@ -245,7 +250,46 @@ html[data-intro] .book-intro {
 }
 /* Ombre qui gagne la couverture pendant qu'elle tourne (opacité uniquement). */
 .book-shade {
-  animation: book-shade 950ms cubic-bezier(0.6, 0, 0.3, 1) 550ms both;
+  animation: book-shade var(--book-open) cubic-bezier(0.55, 0, 0.25, 1) var(--book-hold) both;
+}
+/*
+ * Arrivée de la page pendant l'ouverture : elle monte doucement puis se pose avec un léger rebond.
+ * « backwards » : aucune transformation ne subsiste après l'animation.
+ */
+html[data-intro="1"] .page-arrive,
+html[data-intro="done"] .page-arrive {
+  animation: page-arrive 1100ms cubic-bezier(0.25, 1, 0.5, 1) 1450ms backwards;
+}
+/* Pendant l'ouverture, le podium monte une fois la page arrivée (sinon il serait caché par la couverture). */
+html[data-intro="1"] .rise,
+html[data-intro="done"] .rise {
+  animation-delay: calc(var(--delay, 0ms) + 2100ms);
+}
+
+/* Jamais sur téléphone, même si la fenêtre est redimensionnée pendant l'ouverture. */
+@media (max-width: 767px) {
+  html[data-intro] .book-intro {
+    display: none;
+  }
+  html[data-intro="1"] .page-arrive {
+    animation: none;
+  }
+}
+@keyframes page-arrive {
+  0% {
+    opacity: 0.85;
+    transform: translateY(2.5rem) scale(0.965);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-0.4rem) scale(1.004);
+  }
+  85% {
+    transform: translateY(0.12rem) scale(0.999);
+  }
+  100% {
+    transform: none;
+  }
 }
 @keyframes book-open {
   0% {
