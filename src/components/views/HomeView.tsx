@@ -1,7 +1,7 @@
 import { BackCover } from "@/components/home/BackCover";
 import { BookIntro, introScript } from "@/components/home/BookIntro";
 import { Contact } from "@/components/home/Contact";
-import { Hero } from "@/components/home/Hero";
+import { Hero, heroScript } from "@/components/home/Hero";
 import { Journey } from "@/components/home/Journey";
 import { ProjectIndex } from "@/components/home/ProjectIndex";
 import { Stack } from "@/components/home/Stack";
@@ -15,6 +15,7 @@ export function HomeView({ locale }: { locale: Locale }) {
     <>
       {/* Avant tout le reste : décide de l'ouverture « livre » avant le premier affichage. */}
       <script dangerouslySetInnerHTML={{ __html: introScript }} />
+      <script dangerouslySetInnerHTML={{ __html: heroScript }} />
       <BookIntro locale={locale} />
       {/* Conteneur animé à l'arrivée de la page, seulement pendant l'ouverture « livre ». */}
       <div className="page-arrive">
