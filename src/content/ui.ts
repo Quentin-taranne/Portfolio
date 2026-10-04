@@ -14,9 +14,8 @@ export const ui = {
   switchToLabel: t("Read in English", "Lire en français"),
   darkTheme: t("Thème sombre", "Dark theme"),
 
-  freelance: t("Freelance", "Freelance"),
-  internshipTitle: t("Stage de 3e année", "3rd-year internship"),
-  onlineExample: t("En ligne", "Live"),
+  lookingFor: t("Recherche", "Looking for"),
+  now: t("En ce moment", "Currently"),
   askQuote: t("Demander un devis", "Request a quote"),
   quoteSubject: t("Demande de devis", "Quote request"),
   rankSuffix: { 1: t("er", "st"), 2: t("e", "nd"), 3: t("e", "rd") } as Record<1 | 2 | 3, T>,

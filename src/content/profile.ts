@@ -24,33 +24,25 @@ export const status: { label: T; value: T }[] = [
   {
     label: t("Stage", "Internship"),
     value: t(
-      "À partir d'avril 2027 · 4 mois · data / IA en priorité, web, logiciel, DevOps",
-      "From April 2027 · 4 months · data / AI first, web, software, DevOps",
+      "À partir d'avril 2027 · 4 mois · data / IA, web, logiciel, DevOps",
+      "From April 2027 · 4 months · data / AI, web, software, DevOps",
     ),
   },
   { label: t("Lieu", "Location"), value: t("La Réunion (UTC+4) · remote", "Réunion Island (UTC+4) · remote") },
 ];
 
-/** Accueil : l'offre freelance et le stage recherché, côte à côte. */
+/** Accueil : ce qui est recherché (une ligne chacun, avec son action). */
 export const offers = {
   freelance: {
-    status: t("Disponible", "Available"),
-    title: t("Sites vitrines, applications web, outils data", "Showcase websites, web apps, data tools"),
-    rows: [
-      { label: t("Réalise", "Delivers"), value: t("Développement complet et mise en ligne · tableaux de bord (Power BI) et analyses (Python)", "Full development and deployment · dashboards (Power BI) and analysis (Python)") },
-      { label: t("Cadre", "Setup"), value: t("Micro-entreprise depuis oct. 2026 · La Réunion (UTC+4) · remote", "Sole proprietorship since Oct 2026 · Réunion Island (UTC+4) · remote") },
-    ],
-    /** Réalisation en ligne, liée à sa page projet. */
-    example: "piano-concerto-festival",
+    title: t("Missions de freelance", "Freelance work"),
+    detail: t("Sites vitrines · applications web · outils data", "Showcase websites · web apps · data tools"),
   },
   internship: {
-    status: t("Avril 2027 · 4 mois", "April 2027 · 4 months"),
-    title: t("Data / IA en priorité", "Data / AI first"),
-    rows: [
-      { label: t("Aussi", "Also"), value: t("Développement web · logiciel / systèmes · DevOps / cloud", "Web development · software / systems · DevOps / cloud") },
-      { label: t("Lieu", "Location"), value: t("La Réunion ou remote", "Réunion Island or remote") },
-      { label: t("Formation", "Studies"), value: t("Epitech · 3e année sur 5", "Epitech · 3rd year of 5") },
-    ],
+    title: t("Stage", "Internship"),
+    detail: t(
+      "Avril 2027 · 4 mois · data / IA, web, logiciel, DevOps · La Réunion ou remote",
+      "April 2027 · 4 months · data / AI, web, software, DevOps · Réunion Island or remote",
+    ),
   },
 };
 
