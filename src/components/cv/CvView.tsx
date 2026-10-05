@@ -26,7 +26,7 @@ const pdfFile = { fr: "CV-Quentin-Taranne-Payet-FR.pdf", en: "CV-Quentin-Taranne
 const short = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 /**
- * États mis en étiquette, en noir : chaque couleur n'apparaît qu'une fois sur la page (repères de rubrique),
+ * États mis en étiquette, sans couleur : chaque couleur n'apparaît qu'une fois sur la page (repères de rubrique),
  * pour qu'aucune information ne semble liée à une autre par sa couleur.
  */
 const LABELED = new Set(["Freelance", "Internship"]);
@@ -102,9 +102,12 @@ export async function CvView({ locale }: { locale: Locale }) {
           <PrintButton label={ui.print[locale]} />
         </div>
 
-        {/* La feuille : 210 mm de large, texte compact pour tenir sur une page A4. */}
-        <article className="cv-sheet [print-color-adjust:exact] mx-auto max-w-[210mm] border bg-card p-6 text-[0.8125rem] leading-snug sm:p-[12mm] print:max-w-none print:text-[9.5pt] print:leading-[1.27] print:border-0 print:bg-transparent print:p-0">
-          <header className="grid gap-4 border-b-2 border-foreground pb-4 sm:grid-cols-[auto_1fr_auto] sm:gap-6 print:pb-2.5">
+        {/*
+         * La feuille : 210 mm de large, texte compact pour tenir sur une page A4.
+         * À l'impression, largeur imprimable A4 fixe (186 mm) et colonnes forcées : même rendu depuis un téléphone.
+         */}
+        <article className="cv-sheet [print-color-adjust:exact] mx-auto max-w-[210mm] border bg-card p-6 text-[0.8125rem] leading-snug sm:p-[12mm] print:w-[186mm] print:max-w-none print:text-[9.5pt] print:leading-[1.27] print:border-0 print:bg-transparent print:p-0">
+          <header className="grid gap-4 border-b-2 border-foreground pb-4 sm:grid-cols-[auto_1fr_auto] sm:gap-6 print:grid-cols-[auto_1fr_auto] print:gap-6 print:pb-2.5">
             <Image
               src={profile.photo.src}
               alt={profile.photo.alt[locale]}
@@ -124,7 +127,7 @@ export async function CvView({ locale }: { locale: Locale }) {
                 {status.map((s) => (
                   <li key={s.label.en}>
                     {LABELED.has(s.label.en) ? (
-                      <span className="data mr-1 inline-block border border-foreground bg-foreground px-1.5 leading-normal text-background">
+                      <span className="data mr-1 inline-block border border-foreground bg-card px-1.5 leading-normal text-foreground print:bg-transparent">
                         {s.label[locale]}
                       </span>
                     ) : (
@@ -135,7 +138,7 @@ export async function CvView({ locale }: { locale: Locale }) {
                 ))}
               </ul>
             </div>
-            <ul className="space-y-0.5 sm:text-right">
+            <ul className="space-y-0.5 sm:text-right print:text-right">
               <li>
                 <a href={`mailto:${profile.email}`} className="inline-flex min-h-6 items-center underline-offset-2 hover:underline print:min-h-0">
                   {profile.email}
