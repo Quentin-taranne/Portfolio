@@ -221,7 +221,7 @@ export const projects: Project[] = [
   },
   {
     slug: "antennes",
-    name: "Antennes · Epitech × Free",
+    name: "Hackathon Epitech × Free",
     kind: t("Hackathon", "Hackathon"),
     line: t("Répartition de la couverture réseau", "Network-coverage balancing"),
     rank: 2,
@@ -328,6 +328,12 @@ export const projects: Project[] = [
           "API Gemini et une partie de Firebase indisponibles depuis La Réunion → Supabase et Vertex AI",
           "Gemini API and parts of Firebase unavailable from Réunion → Supabase and Vertex AI",
         ),
+      },
+    ],
+    links: [
+      {
+        href: "https://www.epitech.eu/2025/10/10/defi-intelligence-artificielle-formation-epitech/",
+        label: t("Article Epitech", "Epitech article (French)"),
       },
     ],
   },

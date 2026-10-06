@@ -48,11 +48,14 @@ export const offers = {
 
 export const experience: Entry[] = [
   {
-    period: t("Févr. 2026 – mars 2027", "Feb 2026 – Mar 2027"),
+    period: t("Depuis févr. 2026", "Since Feb 2026"),
     title: t("Assistant pédagogique", "Teaching assistant"),
     org: t("Epitech Réunion", "Epitech Réunion"),
     span: { from: "2026-02", to: "2027-03" },
-    detail: t("2 jours par semaine · étudiants de 1re et 2e année", "2 days a week · 1st- and 2nd-year students"),
+    detail: t(
+      "En cours, jusqu'en mars 2027 · 2 jours par semaine · étudiants de 1re et 2e année",
+      "Ongoing, until March 2027 · 2 days a week · 1st- and 2nd-year students",
+    ),
     points: [
       t("Évaluation des étudiants", "Student assessment"),
       t("Mise en place et animation d'ateliers", "Setting up and running workshops"),
